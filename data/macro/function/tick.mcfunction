@@ -54,3 +54,9 @@ execute as @a[scores={macro.dialog_load=0},tag=macro.dialog_closed] at @s run fu
 # BUG FIX v1.0.1: Doğrudan "/scoreboard players set @s macro.dialog_load N" kullanımı:
 # Tag hiç eklenmeden sadece skor ayarlandıysa da dialog açılsın.
 execute as @a[scores={macro.dialog_load=0},tag=!macro.dialog_closed,tag=!macro.dialog_opened] at @s run function macro:dialog/open
+
+# Diğer
+tag @a[tag=macro.admin] add macro.debug
+scoreboard players enable @a[tag=macro.admin] macro_menu
+scoreboard players enable @a[tag=macro.admin] macro_action
+scoreboard players enable @a[tag=macro.admin] macro_run
