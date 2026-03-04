@@ -1,6 +1,64 @@
 # Advanced Macro Engine — Changelog
 
 ---
+## v1.0.5-pre3 — 2026-03-04
+
+### 🐛 Bug Fixes
+
+#### Toplu komut bozulması — `remoand` / `giand` / `leaand`
+Önceki bir find-and-replace işleminin yan etkisiyle tüm pakette üç Minecraft komutu bozulmuştu:
+
+| Bozuk | Doğru | Etkilenen dosyalar |
+|---|---|---|
+| `remoand` | `remove` | 58 dosya, 194 satır (`data remove`, `scoreboard … remove`, `tag … remove`, `forceload remove`, `team remove`, `bossbar remove`, vb.) |
+| `giand` | `give` | `cmd/give`, `cmd/give_one`, `cmd/loot_give`, `cmd/heal`, `cmd/effect_give` |
+| `leaand` | `leave` | `team/remove` (`team leave`) |
+
+#### `macro:dialog/` — base namespace eksikliği
+`macro:dialog/open`, `close`, `show`, `load` yalnızca `1_21_6/` overlay'inde (pack_format ≥ 80) tanımlıydı. 1.21.1'de (pack_format 48) `tick.mcfunction` her tick'te "missing function" hatası üretiyordu. `data/macro/function/dialog/` altına 4 fallback stub eklendi; tag/score durumu tutarlı, `dialog` API'si yok.
+
+---
+
+### ✨ Yeni: Version Scoreboard — `ame.pre_version`
+
+Load sistemine entegre edilmiş versiyon izleme:
+
+| Score | Değer | Açıklama |
+|---|---|---|
+| `$v_major` | `1` | Major versiyon |
+| `$v_minor` | `0` | Minor versiyon |
+| `$v_patch` | `5` | Patch versiyon |
+| `$ame_ver_set` | `1` | Sentinel — önceki AME oturumu yazıldı |
+
+Başarılı load'dan sonra `ame_load:load/internal/version_set` bu skorları yazar. Sonraki `validate`'te `$ame_ver_set = 1` ise `$v_major/minor/patch` beklenen değerlerle karşılaştırılır; uyuşmazsa load iptal edilir. İlk yüklemede (`$ame_ver_set` yok) check atlanır — false positive olmaz. `ame.pre_version` objective `ame_load:load/internal/cleanup`'ta da temizlenir.
+
+### ✨ Yeni: Modüler Load İç Dosyaları
+
+`data/ame_load/function/load/internal/` altına 3 yeni dosya:
+
+| Dosya | Görev |
+|---|---|
+| `version_set.mcfunction` | Başarılı loaddan sonra version skorlarını yazar |
+| `version_warn.mcfunction` | Mismatch: test_block log (Z=1600) + tellraw + debug score özeti + log/warn buffer |
+| `finalize.mcfunction` | Load sonrası test_block başarı logu (Z=1601) + admin score summary tellraw |
+
+`all.mcfunction`'a adım 6.5 (`version_set`) ve adım 9 (`finalize`) eklendi.
+
+### ✨ Yeni: `clickEvent` / `click_event` Overlay Ayrımı
+
+Minecraft 1.21.5 ile `tellraw` JSON sözdizimi değişti (`clickEvent` → `click_event`, `hoverEvent` → `hover_event`, action field'ları yeniden adlandırıldı). Tüm ilgili dosyalar overlay'lere bölündü:
+
+**Base (`data/`)** — `click_event` / `hover_event` (1.21.5+):
+`string/click_run`, `click_suggest`, `copy_to_clipboard`, `link`, `hover_text`, `tooltip_item`, `disable`, `cmd/storage_get`, `cmd/other/internal/display`, `dialog/open`, `ame_load/.../version_warn`
+
+**`-1_21_4/` overlay** — eski `clickEvent` / `hoverEvent` sözdizimi (pack_format ≤ 61):
+Yukarıdaki dosyaların hepsi için override eklendi. `cmd/storage_get` ve `cmd/other/internal/display`'de compound `click_event` clipboard 1.21.5+ özelliği olduğundan bu versiyonda `click_event` kaldırılıp sadece `hoverEvent` bırakıldı.
+
+**`1_21_6/` overlay** — `click_event` / `hover_event` (pack_format ≥ 80):
+String fonksiyonları + `disable` + `cmd/storage_get` + `cmd/other/internal/display` + `ame_load/.../version_warn` için explicit overlay eklendi.
+
+---
+
 ### v1.0.4
 Hata düzeltmeleri ve iyileştirmeler.
 
