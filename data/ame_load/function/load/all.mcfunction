@@ -38,7 +38,7 @@ data modify storage macro:engine global.loaded set value 1b
 function ame_load:load/internal/version_set
 
 # ─── 7. Loaded notification ───────────────────────────────
-tellraw @a[tag=macro.debug] {"text":"[Macro Engine v1.0.5-pre3] Loaded.","color":"green"}
+tellraw @a[tag=macro.debug] {"text":"[Macro Engine v1.0.5-pre4] Loaded.","color":"green"}
 # BUG FIX v3.5: pitch:0 → pitch:1 corrected
 data modify storage macro:input sound set value "minecraft:ui.toast.challenge_complete"
 data modify storage macro:input volume set value 1

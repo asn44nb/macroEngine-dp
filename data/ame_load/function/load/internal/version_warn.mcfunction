@@ -14,8 +14,12 @@
 # ============================================
 
 # ─── Test framework log block ─────────────────────────────
-# Z=1600 : version conflict slot (Z=1601 = success, see finalize)
-setblock -30000000 0 1600 minecraft:test_block[mode=log]{mode:"log",message:"❌ [AME] Version conflict detected. Expected v1.0.5-pre3. Run /reload in-game for details."}
+# Z=~ : version conflict slot (Z=~ = success, see finalize)
+setblock ~ ~101 ~ minecraft:redstone_block
+setblock ~ ~100 ~ minecraft:test_block[mode=log]{mode:"log",message:"❌ [AME] Version conflict detected. Expected v1.0.5-pre3. Run /reload in-game for details."}
+
+setblock ~ ~101 ~ minecraft:air
+setblock ~ ~100 ~ minecraft:air
 
 # ─── Broadcast warning (tüm oyuncular) ───────────────────
 tellraw @a ["",{"text":"❌ ","color":"red"},{"text":"[AME] ","color":"aqua","bold":true},{"text":"Version conflict! ","color":"red","bold":true},{"text":"Expected ","color":"gray"},{"text":"v1.0.5-pre3","color":"yellow","bold":true},{"text":" — stored scores do not match.","color":"gray"}]
