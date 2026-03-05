@@ -2,8 +2,13 @@
 # macro:trigger/internal/check_next
 # ============================================
 # _tc_binds listesini birer birer isler.
-# For each element: if value == $tc_player, run its function.
-# macro:input'e hic preserand existingz — tick context guvenlidir.
+# For each element: value == $tc_player ise fonksiyon/komutu run eder.
+# macro:input'e hic dokunmaz — tick context guvenlidir.
+#
+# BUG FIX: onceden her bind icin hem call hem call2 kosulsuz cagriliyordu.
+# Bind sadece func iceriyorsa call2 bos parametreyle calisip hata veriyordu;
+# sadece cmd iceriyorsa call bos parametreyle hata veriyordu.
+# Duzeltme: if data ile .func ve .cmd varligini kontrol et, sadece mevcut olani calistir.
 # ============================================
 
 execute unless data storage macro:engine _tc_binds[0] run return 0
@@ -15,11 +20,11 @@ data remove storage macro:engine _tc_binds[0]
 # Read value and compare
 execute store result score $tc_val macro.tmp run data get storage macro:engine _tc_current.value
 
-# Match: run this bind's function
-execute if score $tc_player macro.tmp = $tc_val macro.tmp run function macro:trigger/internal/call with storage macro:engine _tc_current
+# Match + func field var → fonksiyonu calistir
+execute if score $tc_player macro.tmp = $tc_val macro.tmp if data storage macro:engine _tc_current.func run function macro:trigger/internal/call with storage macro:engine _tc_current
 
-# Match: run this bind's command
-execute if score $tc_player macro.tmp = $tc_val macro.tmp run function macro:trigger/internal/call2 with storage macro:engine _tc_current
+# Match + cmd field var → komutu calistir
+execute if score $tc_player macro.tmp = $tc_val macro.tmp if data storage macro:engine _tc_current.cmd run function macro:trigger/internal/call2 with storage macro:engine _tc_current
 
 # Sonraki bind
 function macro:trigger/internal/check_next

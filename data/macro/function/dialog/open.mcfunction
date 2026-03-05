@@ -10,10 +10,4 @@
 #           (same contract as the 1.21.6 version).
 # ============================================
 
-scoreboard players set @s macro.dialog_load -1
-tag @s remove macro.dialog_closed
-tag @s remove macro.dialog_opened
-tag @s add macro.dialog_opened
-
-
-return run tellraw @s {"text":"This feature requires 1.21.5 or higher!","color":"red","italic":false}
+return run tellraw @s {"text":"This feature requires 1.21.6 or higher!","color":"red","italic":false}
