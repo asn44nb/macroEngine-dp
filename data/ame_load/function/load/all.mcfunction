@@ -10,6 +10,8 @@
 # If validate returns 0, the entire load is cancelled.
 # ============================================
 
+forceload add -30000000 1600
+
 # ─── 1. Validation ────────────────────────────────────────
 # Guard + storage/version/scoreboard checks; return 0 cancels load
 execute unless function ame_load:load/internal/validate run return 0
