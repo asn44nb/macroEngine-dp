@@ -525,31 +525,29 @@ jobs:
           echo "✅ Release version = ${{ inputs.version }}"
 
       - name: Create git tag
-        # BUG FIX: set +e ile git hatalarının adımı çökertmesi engellendi;
-        # tag zaten varsa veya push başarısız olursa sadece uyarı verilir.
+        # Tag zaten varsa atla, yoksa oluştur ve push et.
+        # Push başarısız olursa FAIL — release tag olmadan çalışamaz.
         run: |
-          set +e
           TAG="${{ inputs.version }}"
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git tag "$TAG" 2>/dev/null
-          TAG_EXIT=$?
-          if [ $TAG_EXIT -ne 0 ]; then
-            echo "⚠️ WARN: Tag '$TAG' zaten mevcut, atlanıyor"
-          else
-            echo "✅ Tag '$TAG' oluşturuldu"
+          # Tag remote'da zaten var mı?
+          if git ls-remote --tags origin "refs/tags/$TAG" | grep -q "$TAG"; then
+            echo "⚠️ WARN: Tag '$TAG' remote'da zaten mevcut, atlanıyor"
+            exit 0
           fi
 
-          git push origin "$TAG" 2>/dev/null
-          PUSH_EXIT=$?
-          if [ $PUSH_EXIT -ne 0 ]; then
-            echo "⚠️ WARN: Tag '$TAG' push edilemedi (zaten remote'da mevcut olabilir)"
-          else
+          # Local tag oluştur (zaten varsa sorun değil)
+          git tag "$TAG" 2>/dev/null || echo "⚠️ WARN: Local tag '$TAG' zaten var"
+
+          # Remote'a push et — başarısız olursa FAIL
+          if git push origin "$TAG"; then
             echo "✅ Tag '$TAG' remote'a push edildi"
+          else
+            echo "❌ FAILED: Tag '$TAG' push edilemedi. Settings → Actions → General → Workflow permissions → 'Read and write permissions' olduğundan emin ol."
+            exit 1
           fi
-
-          exit 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
