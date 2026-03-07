@@ -6,6 +6,7 @@
     "contents": {
       "text": "Açıp kapatmak istediğin sistemi yaz ve 'Uygula' tuşuna bas.",
       "color": "aqua",
+      "bold": false,
       "italic": false
     }
   },
@@ -14,13 +15,13 @@
       "type": "minecraft:text",
       "key": "sys",
       "label": "Modül / Sistem",
-      "label_visible": 1,
+      "label_visible": true,
       "max_length": 400000000,
       "multiline": {}
     }
   ],
-  "can_close_with_escape": 1,
-  "pause": 0,
+  "can_close_with_escape": true,
+  "pause": false,
   "after_action": "close",
   "columns": 1,
   "actions": [
