@@ -1,14 +1,68 @@
 name: Validate & Release
 
-# ──────────────────────────────────────────────────────────────
-# Otomatik tetikleyici YOK — sadece elle çalıştırılır.
-# Actions → "Run workflow" butonunu kullan.
-# ──────────────────────────────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║          TAMAMEN MANUEL — otomatik tetikleyici YOK          ║
+# ║   Actions → "Run workflow" → istediğin seçenekleri ayarla   ║
+# ╚══════════════════════════════════════════════════════════════╝
 on:
   workflow_dispatch:
     inputs:
 
-      # ── Validation toggles ──────────────────────────────────
+      # ┌─────────────────────────────────────────────────────┐
+      # │                  CHECKOUT & RUNNER                  │
+      # └─────────────────────────────────────────────────────┘
+      checkout_ref:
+        description: 'Branch / tag / SHA (boş = varsayılan branch)'
+        required: false
+        default: ''
+
+      runner:
+        description: 'Runner'
+        required: true
+        type: choice
+        default: 'ubuntu-latest'
+        options:
+          - ubuntu-latest
+          - ubuntu-22.04
+          - ubuntu-24.04
+
+      fail_fast:
+        description: '💥 fail-fast — bir job başarısız olunca diğerleri iptal edilsin mi?'
+        required: true
+        type: boolean
+        default: false
+
+      # ┌─────────────────────────────────────────────────────┐
+      # │                 DİZİN / DOSYA TANIMLARI             │
+      # └─────────────────────────────────────────────────────┘
+      scan_dirs:
+        description: '📂 Taranacak dizinler (boşlukla ayrılmış). Validation + ZIP için kullanılır.'
+        required: true
+        default: 'data _pre_1_21_4 ./-1_21_4 1_21_6'
+
+      required_files:
+        description: '📄 Zorunlu dosyalar (boşlukla ayrılmış). Örn: pack.mcmeta pack.png'
+        required: true
+        default: 'pack.mcmeta pack.png'
+
+      required_dirs:
+        description: '📁 Zorunlu dizinler (boşlukla ayrılmış). Örn: data _pre_1_21_4'
+        required: true
+        default: 'data _pre_1_21_4 ./-1_21_4 1_21_6'
+
+      required_mcfunctions:
+        description: '⚙️ Varlığı kontrol edilecek .mcfunction dosyaları (boşlukla ayrılmış).'
+        required: true
+        default: 'data/macro/function/load.mcfunction data/macro/function/tick.mcfunction'
+
+      required_tag_jsons:
+        description: '🏷️ Varlığı kontrol edilecek tag JSON dosyaları (boşlukla ayrılmış).'
+        required: true
+        default: 'data/minecraft/tags/function/load.json data/minecraft/tags/function/tick.json'
+
+      # ┌─────────────────────────────────────────────────────┐
+      # │                  VALIDATION TOGGLE                  │
+      # └─────────────────────────────────────────────────────┘
       run_validate_json:
         description: '🔵 JSON Validation'
         required: true
@@ -39,7 +93,40 @@ on:
         type: boolean
         default: true
 
-      # ── Release config ──────────────────────────────────────
+      # ┌─────────────────────────────────────────────────────┐
+      # │               VALIDATION DAVRANIŞI                  │
+      # └─────────────────────────────────────────────────────┘
+      empty_mcfunction_action:
+        description: 'Boş .mcfunction davranışı: warn = uyarı ver devam et | fail = durdur | skip = kontrol etme'
+        required: true
+        type: choice
+        default: 'warn'
+        options:
+          - warn
+          - fail
+          - skip
+
+      strict_function_refs:
+        description: '🔒 Strict function ref — eksik referans WARN değil FAIL sayılsın'
+        required: true
+        type: boolean
+        default: true
+
+      strict_version_match:
+        description: '🔒 Strict version — pack.mcmeta versiyonu eşleşmezse FAIL (default: WARN)'
+        required: true
+        type: boolean
+        default: false
+
+      strict_changelog:
+        description: '🔒 Strict changelog — CHANGELOG eksikse FAIL (default: WARN)'
+        required: true
+        type: boolean
+        default: false
+
+      # ┌─────────────────────────────────────────────────────┐
+      # │                   RELEASE CONFIG                    │
+      # └─────────────────────────────────────────────────────┘
       create_release:
         description: '🚀 GitHub Release oluştur?'
         required: true
@@ -47,18 +134,33 @@ on:
         default: false
 
       version:
-        description: '🏷️  Release version (örn: v1.2.3) — Release için zorunlu'
+        description: '🏷️ Release version (örn: v1.2.3) — Release oluşturmak için zorunlu'
+        required: false
+        default: ''
+
+      zip_name_pattern:
+        description: 'ZIP dosya adı şablonu. {name} = macroEngine, {version} = versiyon. Örn: {name}-{version}'
+        required: true
+        default: '{name}-{version}'
+
+      zip_extra_paths:
+        description: 'ZIP ekstra yollar (boşlukla ayrılmış). scan_dirs + required_files zaten dahildir.'
+        required: false
+        default: ''
+
+      zip_exclude_patterns:
+        description: 'ZIP hariç tut — glob desenleri (boşlukla ayrılmış). Örn: "*.log *.tmp"'
         required: false
         default: ''
 
       release_draft:
-        description: '📝 Release draft olarak oluştur?'
+        description: '📝 Draft olarak oluştur?'
         required: true
         type: boolean
         default: false
 
       release_prerelease:
-        description: '⚠️  Pre-release olarak işaretle?'
+        description: '⚠️ Pre-release olarak işaretle?'
         required: true
         type: boolean
         default: false
@@ -69,11 +171,19 @@ on:
         type: boolean
         default: true
 
-      zip_include_overlays:
-        description: '📦 ZIP: Overlay klasörlerini dahil et? (_pre_1_21_4, -1_21_4, 1_21_6)'
-        required: true
-        type: boolean
-        default: true
+      release_body:
+        description: '📝 Özel release notu metni (boş = otomatik notlara bırak)'
+        required: false
+        default: ''
+
+
+# ──────────────────────────────────────────────────────────────
+# CONCURRENCY — aynı anda birden fazla çalışmasını engelle
+# ──────────────────────────────────────────────────────────────
+concurrency:
+  group: validate-release-${{ github.run_id }}
+  cancel-in-progress: false
+
 
 # ──────────────────────────────────────────────────────────────
 # JOBS
@@ -81,66 +191,136 @@ on:
 jobs:
 
   # ─────────────────────────────────────────────
+  # 0. Konfigürasyon özeti — her zaman çalışır
+  # ─────────────────────────────────────────────
+  config-summary:
+    name: "⚙️ Config Summary"
+    runs-on: ${{ inputs.runner }}
+    steps:
+      - name: Print resolved config
+        run: |
+          echo "╔═══════════════════════════════════════════════════╗"
+          echo "║                 WORKFLOW CONFIG                   ║"
+          echo "╠═══════════════════════════════════════════════════╣"
+          echo "  runner               : ${{ inputs.runner }}"
+          echo "  checkout_ref         : '${{ inputs.checkout_ref }}'"
+          echo "  fail_fast            : ${{ inputs.fail_fast }}"
+          echo "  ── Dizinler & Dosyalar ──────────────────────────"
+          echo "  scan_dirs            : ${{ inputs.scan_dirs }}"
+          echo "  required_files       : ${{ inputs.required_files }}"
+          echo "  required_dirs        : ${{ inputs.required_dirs }}"
+          echo "  required_mcfunctions : ${{ inputs.required_mcfunctions }}"
+          echo "  required_tag_jsons   : ${{ inputs.required_tag_jsons }}"
+          echo "  ── Validation Toggles ───────────────────────────"
+          echo "  validate_json        : ${{ inputs.run_validate_json }}"
+          echo "  validate_pack        : ${{ inputs.run_validate_pack }}"
+          echo "  validate_functions   : ${{ inputs.run_validate_functions }}"
+          echo "  validate_structure   : ${{ inputs.run_validate_structure }}"
+          echo "  validate_version     : ${{ inputs.run_validate_version }}"
+          echo "  ── Validation Behaviour ─────────────────────────"
+          echo "  empty_mcfunc_action  : ${{ inputs.empty_mcfunction_action }}"
+          echo "  strict_func_refs     : ${{ inputs.strict_function_refs }}"
+          echo "  strict_version       : ${{ inputs.strict_version_match }}"
+          echo "  strict_changelog     : ${{ inputs.strict_changelog }}"
+          echo "  ── Release ──────────────────────────────────────"
+          echo "  create_release       : ${{ inputs.create_release }}"
+          echo "  version              : '${{ inputs.version }}'"
+          echo "  zip_name_pattern     : ${{ inputs.zip_name_pattern }}"
+          echo "  zip_extra_paths      : '${{ inputs.zip_extra_paths }}'"
+          echo "  zip_exclude_patterns : '${{ inputs.zip_exclude_patterns }}'"
+          echo "  release_draft        : ${{ inputs.release_draft }}"
+          echo "  release_prerelease   : ${{ inputs.release_prerelease }}"
+          echo "  release_generate_notes: ${{ inputs.release_generate_notes }}"
+          echo "╚═══════════════════════════════════════════════════╝"
+
+  # ─────────────────────────────────────────────
   # 1. JSON Validation
   # ─────────────────────────────────────────────
   validate-json:
-    name: Validate JSON
-    runs-on: ubuntu-latest
+    name: "🔵 Validate JSON"
+    runs-on: ${{ inputs.runner }}
+    needs: config-summary
     if: ${{ inputs.run_validate_json == true }}
     steps:
       - uses: actions/checkout@v4
-      - name: Validate all JSON files
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
+
+      - name: Validate JSON files in scan_dirs
         run: |
           FAILED=0
-          while IFS= read -r f; do
-            if jq . "$f" > /dev/null 2>&1; then
-              echo "OK: $f"
-            else
-              echo "FAIL: $f"; jq . "$f" 2>&1 || true; FAILED=1
-            fi
-          done < <(find data _pre_1_21_4 ./-1_21_4 1_21_6 -name "*.json" 2>/dev/null; echo "pack.mcmeta")
-          [ $FAILED -ne 0 ] && { echo "FAILED: Invalid JSON files."; exit 1; } || echo "PASSED"
+          for d in ${{ inputs.scan_dirs }}; do
+            while IFS= read -r f; do
+              if jq . "$f" > /dev/null 2>&1; then
+                echo "OK: $f"
+              else
+                echo "FAIL: $f"
+                jq . "$f" 2>&1 || true
+                FAILED=1
+              fi
+            done < <(find "$d" -name "*.json" 2>/dev/null)
+          done
+          # pack.mcmeta ayrıca kontrol et
+          if jq . pack.mcmeta > /dev/null 2>&1; then
+            echo "OK: pack.mcmeta"
+          else
+            echo "FAIL: pack.mcmeta"
+            jq . pack.mcmeta 2>&1 || true
+            FAILED=1
+          fi
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED: Geçersiz JSON dosyaları var."; exit 1; } || echo "✅ PASSED"
 
   # ─────────────────────────────────────────────
   # 2. pack.mcmeta Structural Validation
   # ─────────────────────────────────────────────
   validate-pack:
-    name: Validate pack.mcmeta
-    runs-on: ubuntu-latest
+    name: "🔵 Validate pack.mcmeta"
+    runs-on: ${{ inputs.runner }}
+    needs: config-summary
     if: ${{ inputs.run_validate_pack == true }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
+
       - name: Check pack_format and description
         run: |
           FAILED=0
           PF=$(jq '.pack.pack_format // empty' pack.mcmeta)
-          [ -n "$PF" ] && echo "OK: pack_format = $PF" || { echo "FAIL: Missing pack_format"; FAILED=1; }
+          [ -n "$PF" ] && echo "OK: pack_format = $PF" || { echo "FAIL: pack_format eksik"; FAILED=1; }
           DESC=$(jq '.pack.description // empty' pack.mcmeta)
-          [ -n "$DESC" ] && echo "OK: description present" || { echo "FAIL: Missing description"; FAILED=1; }
+          [ -n "$DESC" ] && echo "OK: description mevcut" || { echo "FAIL: description eksik"; FAILED=1; }
           SF=$(jq '.pack.supported_formats // empty' pack.mcmeta)
-          [ -n "$SF" ] && echo "OK: supported_formats = $SF" || true
-          [ $FAILED -ne 0 ] && exit 1 || echo "PASSED"
-      - name: Check overlay directories exist
+          [ -n "$SF" ] && echo "OK: supported_formats = $SF" || echo "INFO: supported_formats tanımlı değil"
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
+
+      - name: Check overlay directories
         run: |
           FAILED=0
           while IFS= read -r dir; do
             [ -z "$dir" ] && continue
-            [ -d "$dir" ] && echo "OK: $dir/" || { echo "FAIL: Missing overlay dir: $dir/"; FAILED=1; }
+            [ -d "$dir" ] && echo "OK: $dir/" || { echo "FAIL: Overlay dizini eksik: $dir/"; FAILED=1; }
           done < <(jq -r '.overlays.entries[]?.directory // empty' pack.mcmeta 2>/dev/null)
-          [ $FAILED -ne 0 ] && exit 1 || echo "PASSED"
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
 
   # ─────────────────────────────────────────────
   # 3. Function Reference Integrity
   # ─────────────────────────────────────────────
   validate-functions:
-    name: Validate Function References
-    runs-on: ubuntu-latest
+    name: "🔵 Validate Function References"
+    runs-on: ${{ inputs.runner }}
+    needs: config-summary
     if: ${{ inputs.run_validate_functions == true }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
+
       - name: Check function tag references
         run: |
           FAILED=0
+          STRICT="${{ inputs.strict_function_refs }}"
+
           while IFS= read -r tag_file; do
             while IFS= read -r ref; do
               [ -z "$ref" ] && continue
@@ -148,56 +328,102 @@ jobs:
               [[ "$ref" != *:* ]] && continue
               ns="${ref%%:*}"; path="${ref#*:}"
               found=0
-              for base in . _pre_1_21_4 ./-1_21_4 1_21_6; do
+              for base in . ${{ inputs.scan_dirs }}; do
                 [ -f "$base/data/$ns/function/$path.mcfunction" ] && found=1 && break
               done
-              [ $found -eq 1 ] && echo "OK: $ref" || { echo "FAIL: $tag_file -> $ref not found"; FAILED=1; }
+              if [ $found -eq 1 ]; then
+                echo "OK: $ref"
+              else
+                if [ "$STRICT" == "true" ]; then
+                  echo "FAIL: $tag_file → $ref bulunamadı"
+                  FAILED=1
+                else
+                  echo "WARN: $tag_file → $ref bulunamadı"
+                fi
+              fi
             done < <(jq -r '.values[]? | if type == "object" then .id else . end' "$tag_file" 2>/dev/null)
-          done < <(find data _pre_1_21_4 ./-1_21_4 1_21_6 -path "*/tags/function/*.json" 2>/dev/null)
-          [ $FAILED -ne 0 ] && { echo "FAILED"; exit 1; } || echo "PASSED"
+          done < <(
+            for d in ${{ inputs.scan_dirs }}; do
+              find "$d" -path "*/tags/function/*.json" 2>/dev/null
+            done
+          )
+
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
+
       - name: Check for empty .mcfunction files
         run: |
+          ACTION="${{ inputs.empty_mcfunction_action }}"
+          [ "$ACTION" == "skip" ] && { echo "INFO: Boş dosya kontrolü atlandı (skip)"; exit 0; }
+
           EMPTY=0
           while IFS= read -r f; do
             content=$(grep -v '^[[:space:]]*#' "$f" | grep -v '^[[:space:]]*$' || true)
-            [ -z "$content" ] && { echo "WARN: Empty: $f"; EMPTY=$((EMPTY+1)); }
-          done < <(find data _pre_1_21_4 ./-1_21_4 1_21_6 -name "*.mcfunction" 2>/dev/null)
-          [ $EMPTY -gt 0 ] && echo "WARN: $EMPTY empty files (may be intentional)" || echo "PASSED"
+            [ -z "$content" ] && { echo "$(echo $ACTION | tr a-z A-Z): Boş: $f"; EMPTY=$((EMPTY+1)); }
+          done < <(
+            for d in ${{ inputs.scan_dirs }}; do
+              find "$d" -name "*.mcfunction" 2>/dev/null
+            done
+          )
+
+          if [ $EMPTY -gt 0 ]; then
+            echo "$EMPTY boş .mcfunction dosyası bulundu"
+            [ "$ACTION" == "fail" ] && { echo "❌ FAILED"; exit 1; } || echo "⚠️ WARNED (intentional olabilir)"
+          else
+            echo "✅ PASSED: Boş .mcfunction yok"
+          fi
 
   # ─────────────────────────────────────────────
-  # 4. Required Files Check
+  # 4. File Structure Check
   # ─────────────────────────────────────────────
   validate-structure:
-    name: Validate File Structure
-    runs-on: ubuntu-latest
+    name: "🔵 Validate File Structure"
+    runs-on: ${{ inputs.runner }}
+    needs: config-summary
     if: ${{ inputs.run_validate_structure == true }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check required files and directories
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
+
+      - name: Check required files
         run: |
           FAILED=0
-          for f in pack.mcmeta pack.png; do
-            [ -f "$f" ] && echo "OK: $f" || { echo "FAIL: $f missing"; FAILED=1; }
+          for f in ${{ inputs.required_files }}; do
+            [ -f "$f" ] && echo "OK: $f" || { echo "FAIL: $f eksik"; FAILED=1; }
           done
-          for d in data _pre_1_21_4 ./-1_21_4 1_21_6; do
-            [ -d "$d" ] && echo "OK: $d ($(find "$d" -type f | wc -l) files)" || { echo "FAIL: $d missing"; FAILED=1; }
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
+
+      - name: Check required directories
+        run: |
+          FAILED=0
+          for d in ${{ inputs.required_dirs }}; do
+            [ -d "$d" ] && echo "OK: $d/ ($(find "$d" -type f | wc -l) dosya)" \
+                        || { echo "FAIL: $d/ eksik"; FAILED=1; }
           done
-          for fn in \
-            "data/macro/function/load.mcfunction" \
-            "data/macro/function/tick.mcfunction" \
-            "data/minecraft/tags/function/load.json" \
-            "data/minecraft/tags/function/tick.json"; do
-            [ -f "$fn" ] && echo "OK: $fn" || { echo "FAIL: $fn missing"; FAILED=1; }
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
+
+      - name: Check required .mcfunction files
+        run: |
+          FAILED=0
+          for fn in ${{ inputs.required_mcfunctions }}; do
+            [ -f "$fn" ] && echo "OK: $fn" || { echo "FAIL: $fn eksik"; FAILED=1; }
           done
-          [ $FAILED -ne 0 ] && { echo "FAILED"; exit 1; } || echo "PASSED"
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
+
+      - name: Check required tag JSON files
+        run: |
+          FAILED=0
+          for fn in ${{ inputs.required_tag_jsons }}; do
+            [ -f "$fn" ] && echo "OK: $fn" || { echo "FAIL: $fn eksik"; FAILED=1; }
+          done
+          [ $FAILED -ne 0 ] && { echo "❌ FAILED"; exit 1; } || echo "✅ PASSED"
 
   # ─────────────────────────────────────────────
   # 5. Version Validation
   # ─────────────────────────────────────────────
   validate-version:
-    name: Validate Version
-    runs-on: ubuntu-latest
-    # Bağımlılıklar: sadece aktif olan job'lar beklenir
+    name: "🔵 Validate Version"
+    runs-on: ${{ inputs.runner }}
     needs:
       - validate-json
       - validate-pack
@@ -207,42 +433,68 @@ jobs:
       ${{
         inputs.run_validate_version == true &&
         always() &&
-        !contains(needs.*.result, 'failure') &&
-        !contains(needs.*.result, 'cancelled')
+        !contains(needs.*.result, 'cancelled') &&
+        (inputs.fail_fast == false || !contains(needs.*.result, 'failure'))
       }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
+
       - name: Read version from pack.mcmeta
+        id: mcmeta_ver
         run: |
           RAW=$(jq -c '.' pack.mcmeta)
-          VER=$(echo "$RAW" | grep -oP 'v\d+\.\d+\.\d+' | head -1 || true)
-          [ -n "$VER" ] && echo "OK: pack.mcmeta version: $VER" || echo "WARN: No version found in pack.mcmeta"
-      - name: Check version matches input
+          VER=$(echo "$RAW" | grep -oP 'v\d+\.\d+\.\d+[\w.-]*' | head -1 || true)
+          if [ -n "$VER" ]; then
+            echo "OK: pack.mcmeta versiyonu: $VER"
+            echo "version=$VER" >> $GITHUB_OUTPUT
+          else
+            echo "WARN: pack.mcmeta içinde versiyon deseni bulunamadı"
+            echo "version=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Match version with workflow input
         if: ${{ inputs.version != '' }}
         run: |
-          TAG="${{ inputs.version }}"
-          TAG="${TAG#v}"
-          RAW=$(jq -c '.' pack.mcmeta)
-          if echo "$RAW" | grep -qP "v${TAG}"; then
-            echo "PASSED: v$TAG matches pack.mcmeta"
+          INPUT_TAG="${{ inputs.version }}"
+          META_VER="${{ steps.mcmeta_ver.outputs.version }}"
+          STRICT="${{ inputs.strict_version_match }}"
+
+          if [ -z "$META_VER" ]; then
+            MSG="pack.mcmeta içinde versiyon yok — $INPUT_TAG ile karşılaştırılamadı"
+          elif [[ "$META_VER" == "$INPUT_TAG" ]]; then
+            echo "✅ PASSED: $INPUT_TAG — pack.mcmeta ile eşleşiyor"; exit 0
           else
-            echo "WARN: v$TAG not found in pack.mcmeta — release öncesi pack.mcmeta güncelle"
+            MSG="Uyuşmazlık — input: $INPUT_TAG | pack.mcmeta: $META_VER"
           fi
+
+          [ "$STRICT" == "true" ] && { echo "❌ FAILED: $MSG"; exit 1; } || echo "⚠️ WARN: $MSG"
+
       - name: Check CHANGELOG
         run: |
           TAG="${{ inputs.version }}"
-          [ ! -f "docs/CHANGELOG.md" ] && { echo "WARN: docs/CHANGELOG.md not found"; exit 0; }
-          [ -z "$TAG" ]               && { echo "INFO: Version girilmedi, CHANGELOG kontrolü atlandı"; exit 0; }
-          grep -q "$TAG" docs/CHANGELOG.md \
-            && echo "OK: $TAG CHANGELOG içinde mevcut" \
-            || echo "WARN: $TAG CHANGELOG içinde bulunamadı"
+          STRICT="${{ inputs.strict_changelog }}"
+
+          if [ ! -f "docs/CHANGELOG.md" ]; then
+            MSG="docs/CHANGELOG.md bulunamadı"
+            [ "$STRICT" == "true" ] && { echo "❌ FAILED: $MSG"; exit 1; } || { echo "⚠️ WARN: $MSG"; exit 0; }
+          fi
+          [ -z "$TAG" ] && { echo "INFO: Versiyon girilmedi, CHANGELOG kontrolü atlandı"; exit 0; }
+
+          if grep -q "$TAG" docs/CHANGELOG.md; then
+            echo "✅ OK: $TAG CHANGELOG içinde mevcut"
+          else
+            MSG="$TAG CHANGELOG içinde bulunamadı"
+            [ "$STRICT" == "true" ] && { echo "❌ FAILED: $MSG"; exit 1; } || echo "⚠️ WARN: $MSG"
+          fi
 
   # ─────────────────────────────────────────────
   # 6. Package & Release
   # ─────────────────────────────────────────────
   release:
-    name: Package & Release
-    runs-on: ubuntu-latest
+    name: "🚀 Package & Release"
+    runs-on: ${{ inputs.runner }}
     needs:
       - validate-json
       - validate-pack
@@ -252,26 +504,29 @@ jobs:
       ${{
         inputs.create_release == true &&
         always() &&
-        !contains(needs.*.result, 'failure') &&
-        !contains(needs.*.result, 'cancelled')
+        !contains(needs.*.result, 'cancelled') &&
+        !contains(needs.*.result, 'failure')
       }}
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.ref }}
 
       - name: Verify version is provided
         run: |
-          [ -z "${{ inputs.version }}" ] && { echo "FAIL: Release için version girilmesi zorunlu."; exit 1; }
-          echo "OK: Release version = ${{ inputs.version }}"
+          [ -z "${{ inputs.version }}" ] \
+            && { echo "❌ FAIL: Release için 'version' alanı zorunlu."; exit 1; }
+          echo "✅ Release version = ${{ inputs.version }}"
 
       - name: Create git tag
         run: |
           TAG="${{ inputs.version }}"
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "$TAG" || echo "WARN: Tag $TAG zaten var, atlanıyor"
-          git push origin "$TAG" || echo "WARN: Tag push edilemedi (zaten mevcut olabilir)"
+          git tag "$TAG" || echo "⚠️ WARN: Tag $TAG zaten var, atlanıyor"
+          git push origin "$TAG" || echo "⚠️ WARN: Tag push edilemedi (zaten mevcut olabilir)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -279,27 +534,49 @@ jobs:
         id: build
         run: |
           TAG="${{ inputs.version }}"
-          ZIP="macroEngine-${TAG}.zip"
 
-          if [ "${{ inputs.zip_include_overlays }}" == "true" ]; then
-            zip -r "$ZIP" data/ _pre_1_21_4/ ./-1_21_4/ 1_21_6/ pack.mcmeta pack.png
-            echo "OK: Overlay klasörleri ZIP'e dahil edildi"
-          else
-            zip -r "$ZIP" data/ pack.mcmeta pack.png
-            echo "OK: Sadece data/ klasörü ZIP'e dahil edildi"
-          fi
+          # ZIP adı şablonunu çöz
+          PATTERN="${{ inputs.zip_name_pattern }}"
+          BASENAME="${PATTERN//\{name\}/macroEngine}"
+          BASENAME="${BASENAME//\{version\}/$TAG}"
+          ZIP="${BASENAME}.zip"
+
+          # scan_dirs dahil et
+          PATHS=()
+          for d in ${{ inputs.scan_dirs }}; do
+            [ -e "$d" ] && PATHS+=("$d") || echo "⚠️ WARN: $d bulunamadı, atlandı"
+          done
+
+          # required_files dahil et (tekrar eklenmemesi için unique al)
+          for f in ${{ inputs.required_files }}; do
+            [ -f "$f" ] && PATHS+=("$f") || echo "⚠️ WARN: $f bulunamadı, atlandı"
+          done
+
+          # Ekstra yollar
+          for p in ${{ inputs.zip_extra_paths }}; do
+            [ -e "$p" ] && PATHS+=("$p") || echo "⚠️ WARN: Ekstra yol bulunamadı: $p"
+          done
+
+          # ZIP oluştur
+          zip -r "$ZIP" "${PATHS[@]}"
+
+          # Hariç tutma desenleri
+          for pat in ${{ inputs.zip_exclude_patterns }}; do
+            zip -d "$ZIP" "$pat" 2>/dev/null && echo "Removed: $pat" || true
+          done
 
           echo "zip_name=$ZIP" >> $GITHUB_OUTPUT
-          echo "OK: $ZIP oluşturuldu ($(du -sh "$ZIP" | cut -f1))"
+          echo "✅ $ZIP oluşturuldu ($(du -sh "$ZIP" | cut -f1))"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name:             ${{ inputs.version }}
-          name:                 "macroEngine ${{ inputs.version }}"
-          files:                ${{ steps.build.outputs.zip_name }}
-          draft:                ${{ inputs.release_draft }}
-          prerelease:           ${{ inputs.release_prerelease }}
-          generate_release_notes: ${{ inputs.release_generate_notes }}
+          tag_name:                ${{ inputs.version }}
+          name:                    "macroEngine ${{ inputs.version }}"
+          body:                    ${{ inputs.release_body }}
+          files:                   ${{ steps.build.outputs.zip_name }}
+          draft:                   ${{ inputs.release_draft }}
+          prerelease:              ${{ inputs.release_prerelease }}
+          generate_release_notes:  ${{ inputs.release_generate_notes }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
