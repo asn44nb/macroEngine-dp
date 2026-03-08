@@ -27,7 +27,7 @@ sha256sum datapack.zip
 ```
 1. advanced_macro_engine_v30/ → sunucu/datapacks/ klasörüne koy
 2. /reload
-3. Debug: /function macro:debug/toggle
+3. Admin olun: /tag @s add macro.admin
 ```
 
 ---
