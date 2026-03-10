@@ -28,20 +28,22 @@ execute if data storage macro:engine global{loaded:1b} run function macro:log/wa
 execute if data storage macro:engine global{loaded:1b} run return 0
 
 # ─── Storage version check ───────────────────────────────
-execute unless data storage macro:engine global{version:"V2.0.0"} run data modify storage macro:names temp.vers set value "V1.0.6-pre4"
+# BUG FIX v2.0.0: Fallback message was stale "V1.0.6-pre4". Now reflects actual version.
+execute unless data storage macro:engine global{version:"V2.0.0"} run data modify storage macro:names temp.vers set value "V2.0.0"
 execute unless data storage macro:engine global{version:"V2.0.0"} run tellraw @a [{"text":"[AME] ","color":"aqua","bold":true},{"text":"Version mismatch — expected ","color":"red"},{"storage":"macro:names","nbt":"temp.vers","color":"yellow"},{"text":".","color":"red"}]
 execute unless data storage macro:engine global{version:"V2.0.0"} run return 0
 
 # ─── Scoreboard version conflict check ───────────────────
 # ame.pre_version objective: created here early (safe if already exists).
-# $ame_ver_set = 1 means a previous AME session wrote version scores.
-# Any mismatch from (1, 0, 5) triggers version_warn and aborts load.
+# #ame.ver_set = 1 means a previous AME session wrote version scores.
+# BUG FIX v2.0.0: Comment and comparisons were stale from v1.0.6-pre4 (major=1, patch=6, pre=4).
+# Any mismatch from (major=2, minor=0, patch=0, pre=0) triggers version_warn and aborts load.
 scoreboard objectives add ame.pre_version dummy
 scoreboard players set #ame.mismatch ame.pre_version 0
-execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.major ame.pre_version matches 1 run scoreboard players set #ame.mismatch ame.pre_version 1
+execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.major ame.pre_version matches 2 run scoreboard players set #ame.mismatch ame.pre_version 1
 execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.minor ame.pre_version matches 0 run scoreboard players set #ame.mismatch ame.pre_version 1
-execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.patch ame.pre_version matches 6 run scoreboard players set #ame.mismatch ame.pre_version 1
-execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.pre ame.pre_version matches 4 run scoreboard players set #ame.mismatch ame.pre_version 1
+execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.patch ame.pre_version matches 0 run scoreboard players set #ame.mismatch ame.pre_version 1
+execute if score #ame.ver_set ame.pre_version matches 1 run execute unless score #ame.pre ame.pre_version matches 0 run scoreboard players set #ame.mismatch ame.pre_version 1
 execute if score #ame.mismatch ame.pre_version matches 1 run function ame_load:load/internal/version_warn
 execute if score #ame.mismatch ame.pre_version matches 1 run return 0
 

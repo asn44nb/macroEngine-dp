@@ -5,8 +5,8 @@
 # If a schedule is already active, ignores the call
 # (first call is preserved — subsequent ones are dropped).
 #
-# For the opposite behaviour (son cagriyi koru):
-# schedule_cancel → schedule seklinde cagirin.
+# For the opposite behaviour (keep the LAST call, cancel earlier ones):
+# call schedule_cancel then schedule.
 #
 # INPUT: macro:input { func:"<namespace:path>", interval:<tick>, key:"<id>" }
 # EXAMPLE:
@@ -14,12 +14,12 @@
 # data modify storage macro:input interval set value 60
 # data modify storage macro:input key set value "autosave"
 # function macro:lib/debounce with storage macro:input {}
-# # → Player fires every second but only saves once every 3s
+# # → Player triggers every second but the save only runs once per 3s window
 # ============================================
 
-# Schedule zaten if present, → gormezden gel (debounce)
+# Schedule already active → ignore call (debounce: keep the first, drop the rest)
 $execute if data storage macro:engine schedules.$(key) run return 0
 
-# If absent → create a normal schedule
+# Key absent → create a new normal schedule
 function macro:lib/schedule with storage macro:input {}
 $tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"lib/debounce ","color":"aqua"},{"text":" → ","color":"dark_gray"},{"text":"$(key)","color":"aqua"}]
