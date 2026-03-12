@@ -17,6 +17,6 @@ tag @s remove macro.dialog_closed
 tag @s remove macro.dialog_opened
 tag @s add macro.dialog_opened
 
-tellraw @s ["",{"text":"[AME] ","color":"aqua","bold":true},{"text":"Dialog: ","color":"gray"},{"nbt":"dialog.DIALOG","storage":"macro:engine","color":"yellow"},{"text":" — ","color":"dark_gray"},{"text":"This feature requires Minecraft 1.21.5 or higher.","color":"red","italic":true}]
+tellraw @s ["",{"text":"[AME] ","color":"aqua","bold":true},{"text":"Dialog: ","color":"gray"},{"nbt":"dialog.DIALOG","storage":"macro:engine","color":"yellow"},{"text":" — ","color":"#555555"},{"text":"This feature requires Minecraft 1.21.5 or higher.","color":"red","italic":true}]
 
 return 1

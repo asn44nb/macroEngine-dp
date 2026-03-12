@@ -7,7 +7,7 @@
 # Called ONLY from macro:player/init when the
 # player does not yet have an entry in player_pids.
 #
-# BUG FIX v2.0.2: Introduced to replace @a[name=...]
+# BUG FIX v2.0.3-pre1: Introduced to replace @a[name=...]
 # selectors in perm/* with unambiguous pid-based
 # targeting (duplicate-name safe for offline servers).
 #
@@ -38,4 +38,4 @@ $scoreboard players operation @a[name=$(player),limit=1] macro.pid = $next_pid m
 # Persist incremented sequence back to storage (survives /reload)
 execute store result storage macro:engine _pid_seq int 1 run scoreboard players get $next_pid macro.tmp
 
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/internal/assign_pid ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" → pid=","color":"dark_gray"},{"score":{"name":"$next_pid","objective":"macro.tmp"},"color":"green"}]
+$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"player/internal/assign_pid ","color":"aqua"},{"text":"$(player)","color":"white"},{"text":" → pid=","color":"#555555"},{"score":{"name":"$next_pid","objective":"macro.tmp"},"color":"green"}]

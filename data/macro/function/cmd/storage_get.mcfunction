@@ -16,4 +16,4 @@
 # function macro:cmd/storage_get with storage macro:input {}
 # ============================================
 
-$tellraw @s [{"text":"[","color":"dark_gray"},{"text":"$(storage)","color":"gray","italic":true},{"text":"] ","color":"dark_gray"},{"nbt":"$(nbt)","storage":"$(storage)","color":"aqua","italic":false}]
+$tellraw @s [{"text":"[","color":"#555555"},{"text":"$(storage)","color":"gray","italic":true},{"text":"] ","color":"#555555"},{"nbt":"$(nbt)","storage":"$(storage)","color":"aqua","italic":false}]

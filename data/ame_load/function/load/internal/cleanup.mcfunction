@@ -70,3 +70,10 @@ scoreboard objectives remove ame.pre_version
 # ─── Dialog tag'leri clear ────────────────────────────
 tag @a remove macro.dialog_opened
 tag @a remove macro.dialog_closed
+
+# ─── PID system clear ─────────────────────────────────
+# macro.pid scores are removed with the objective.
+# player_pids and _pid_seq are cleared so pids are reassigned fresh.
+scoreboard objectives remove macro.pid
+data remove storage macro:engine player_pids
+data remove storage macro:engine _pid_seq

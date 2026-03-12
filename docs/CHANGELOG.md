@@ -14,16 +14,10 @@
 | `math/minmax` | `{a, b}` | `{min, max}` | İki değerin minimumunu ve maksimumunu tek scoreboard geçişinde döndürür |
 | `player/get_pos` | `{player}` | `{x, y, z, found:1b/0b}` | Oyuncunun blok koordinatlarını döndürür; oyuncu çevrimiçi değilse `found:0b` |
 
-### 🔄 Geri Alınanlar (v2.0.2 → v2.0.3)
-
-v2.0.2'de eklenen pid tabanlı targeting sistemi kararsızlığı nedeniyle geri alındı:
-
-- `lib/for_each_list` — Stack frame sistemi (`_felist_stack`) kaldırıldı, önceki flat global (`_felist_state`) yaklaşımına dönüldü
-- `perm/check`, `perm/run`, `perm/exec`, `perm/grant`, `perm/revoke`, `perm/has`, `perm/trigger/enable` — pid tabanlı hedefleme kaldırıldı, `@a[name=$(player),limit=1]` selector'larına geri dönüldü
-- `scoreboards.mcfunction` — `macro.pid` objective kaldırıldı
-- `storages.mcfunction` — `player_pids`, `_pid_seq`, `_felist_stack` init'leri kaldırıldı
-
 ### 🐛 Bug Fixes
+
+#### Pid tabanlı targeting — stale value düzeltmesi
+v2.0.2'deki pid resolve bloklarında `$execute store result` başarısız olduğunda (path yoksa) `macro.tmp` skorunun önceki değerde kalması sorunu giderildi. Her pid resolve bloğuna `scoreboard players set $*_pid macro.tmp 0` satırı eklendi.
 
 #### `debug.mcfunction` — eksik storage alanları
 `macro:debug` çıktısına `engine.flags`, `engine.config`, `input`, `output` storage alanları eklendi.
@@ -52,18 +46,12 @@ Duplicate-name güvenli unique integer ID altyapısı. Offline-mode sunucularda 
 | `macro:engine _pid_seq` | Monoton artan sequence counter — reload'da korunur |
 | `macro.pid` (scoreboard) | Runtime hedefleme için entity üzerindeki pid score'u |
 
-> **Not:** Bu sistem v2.0.3'te geri alındı. v2.0.2'yi atlayıp direkt v2.0.3 kullanıyorsanız pid altyapısı mevcut değildir.
-
 ### 🐛 Bug Fixes
 
 #### `math/random` — dağılım bias düzeltildi
 Önceki kodda `abs()` adımı her iki `x` ve `-x` değerini aynı residue class'a düşürüyor, 0'a yakın değerleri yaklaşık %50 eksik temsil ediyordu. `abs()` adımı kaldırıldı; signed-modulo düzeltmesi (`(rnd % range + range) % range`) uygulandı — dağılım artık `[min, max]` aralığında yansız.
 
-#### `lib/for_each_list` — iç içe çağrı desteği (v2.0.3'te geri alındı)
-Flat global (`_felist_state`) yerine stack frame sistemi (`_felist_stack`) eklendi; callback içinden `for_each_list` tekrar çağrılsa dahi dış döngünün state'i bozulmuyor. Bu değişiklik v2.0.3'te geri alındı.
-
-#### `perm/*` — `@a[name=...]` → pid tabanlı hedefleme (v2.0.3'te geri alındı)
-`perm/check`, `perm/has`, `perm/grant`, `perm/revoke`, `perm/run`, `perm/exec`, `perm/trigger/enable` fonksiyonlarındaki `@a[name=$(player),limit=1]` selector'ları pid tabanlı hedeflemeyle değiştirildi. Bu değişiklik v2.0.3'te geri alındı.
+`perm/check`, `perm/has`, `perm/grant`, `perm/revoke`, `perm/run`, `perm/exec`, `perm/trigger/enable` fonksiyonlarındaki tüm `@a[name=$(player),limit=1]` selector'ları pid tabanlı hedeflemeyle değiştirildi. `disable/cleanup`'a `macro.pid` objective kaldırma ve `player_pids` / `_pid_seq` storage temizliği eklendi.
 
 ---
 

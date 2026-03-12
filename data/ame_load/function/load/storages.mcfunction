@@ -37,3 +37,9 @@ execute unless data storage macro:engine perm_trigger_names run data modify stor
 
 # ─── Trigger bind listesi ────────────────────────────────
 execute unless data storage macro:engine trigger_binds run data modify storage macro:engine trigger_binds set value []
+
+# ─── Player PID map ───────────────────────────────────────
+# name → unique int map for pid-based entity targeting.
+# _pid_seq persists across reloads; player_pids keyed by player name.
+execute unless data storage macro:engine player_pids run data modify storage macro:engine player_pids set value {}
+execute unless data storage macro:engine _pid_seq run data modify storage macro:engine _pid_seq set value 0
