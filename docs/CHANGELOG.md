@@ -2,8 +2,83 @@
 
 ---
 
-## v2.0.1
-- Yakında gelecek
+## v2.0.3 — 2026-03-11
+
+### ✨ Yeni Fonksiyonlar
+
+| Fonksiyon | Input | Output | Açıklama |
+|---|---|---|---|
+| `cooldown/detail` | `{player, key}` | `{active:1b/0b, remaining:<int>, expires:<int>}` | `cooldown/check` + `cooldown/remaining` + expiry tick'ini tek çağrıda döndürür |
+| `lib/ticks_to_time` | `{ticks:<int>}` | `{hours, minutes, seconds, ticks}` | Tick sayısını saat/dakika/saniye/tick bileşenlerine ayırır; negatif girişler sıfır olarak işlenir |
+| `math/divmod` | `{value, divisor}` | `{quotient, remainder}` | Tam bölme ve kalanı tek seferde döndürür; remainder her zaman `[0, divisor)` aralığındadır (safe mod — `math/mod` ile tutarlı); `divisor <= 0` ise her iki alan 0 |
+| `math/minmax` | `{a, b}` | `{min, max}` | İki değerin minimumunu ve maksimumunu tek scoreboard geçişinde döndürür |
+| `player/get_pos` | `{player}` | `{x, y, z, found:1b/0b}` | Oyuncunun blok koordinatlarını döndürür; oyuncu çevrimiçi değilse `found:0b` |
+
+### 🔄 Geri Alınanlar (v2.0.2 → v2.0.3)
+
+v2.0.2'de eklenen pid tabanlı targeting sistemi kararsızlığı nedeniyle geri alındı:
+
+- `lib/for_each_list` — Stack frame sistemi (`_felist_stack`) kaldırıldı, önceki flat global (`_felist_state`) yaklaşımına dönüldü
+- `perm/check`, `perm/run`, `perm/exec`, `perm/grant`, `perm/revoke`, `perm/has`, `perm/trigger/enable` — pid tabanlı hedefleme kaldırıldı, `@a[name=$(player),limit=1]` selector'larına geri dönüldü
+- `scoreboards.mcfunction` — `macro.pid` objective kaldırıldı
+- `storages.mcfunction` — `player_pids`, `_pid_seq`, `_felist_stack` init'leri kaldırıldı
+
+### 🐛 Bug Fixes
+
+#### `debug.mcfunction` — eksik storage alanları
+`macro:debug` çıktısına `engine.flags`, `engine.config`, `input`, `output` storage alanları eklendi.
+
+#### `lib/throttle` — kısmi güncelleme
+Throttle mantığında tutarsızlık giderildi.
+
+#### `cmd/other/multi_cmd/run` ve `run_func` — düzeltme
+Multi-command çalıştırma sırasındaki hata giderildi.
+
+#### `flag/list`, `flag/list_systems`, `event/list`, `perm/list`, `state/list`, `trigger/list`, `log/show` — görüntüleme güncellemeleri
+Tüm liste ve log görüntüleme fonksiyonlarının çıktı formatı güncellendi.
+
+---
+
+## v2.0.2 — 2026-03-11
+
+### ✨ Yeni: Player PID Sistemi
+
+Duplicate-name güvenli unique integer ID altyapısı. Offline-mode sunucularda aynı isme sahip birden fazla oyuncunun olabileceği durumlar için `@a[name=$(player),limit=1]` selector'ı yerine `macro.pid` scoreboard tabanlı hedefleme.
+
+| Bileşen | Açıklama |
+|---|---|
+| `player/internal/assign_pid` | Her oyuncu için ilk `player/init` çağrısında bir kez çalışır; `player_pids.<name>` storage'a ve `macro.pid` score'a benzersiz integer yazar |
+| `macro:engine player_pids` | `{name: pid}` map storage'ı — reload'da korunur |
+| `macro:engine _pid_seq` | Monoton artan sequence counter — reload'da korunur |
+| `macro.pid` (scoreboard) | Runtime hedefleme için entity üzerindeki pid score'u |
+
+> **Not:** Bu sistem v2.0.3'te geri alındı. v2.0.2'yi atlayıp direkt v2.0.3 kullanıyorsanız pid altyapısı mevcut değildir.
+
+### 🐛 Bug Fixes
+
+#### `math/random` — dağılım bias düzeltildi
+Önceki kodda `abs()` adımı her iki `x` ve `-x` değerini aynı residue class'a düşürüyor, 0'a yakın değerleri yaklaşık %50 eksik temsil ediyordu. `abs()` adımı kaldırıldı; signed-modulo düzeltmesi (`(rnd % range + range) % range`) uygulandı — dağılım artık `[min, max]` aralığında yansız.
+
+#### `lib/for_each_list` — iç içe çağrı desteği (v2.0.3'te geri alındı)
+Flat global (`_felist_state`) yerine stack frame sistemi (`_felist_stack`) eklendi; callback içinden `for_each_list` tekrar çağrılsa dahi dış döngünün state'i bozulmuyor. Bu değişiklik v2.0.3'te geri alındı.
+
+#### `perm/*` — `@a[name=...]` → pid tabanlı hedefleme (v2.0.3'te geri alındı)
+`perm/check`, `perm/has`, `perm/grant`, `perm/revoke`, `perm/run`, `perm/exec`, `perm/trigger/enable` fonksiyonlarındaki `@a[name=$(player),limit=1]` selector'ları pid tabanlı hedeflemeyle değiştirildi. Bu değişiklik v2.0.3'te geri alındı.
+
+---
+
+## v2.0.1 — 2026-03-11
+
+### 🐛 Bug Fixes
+
+#### `1_21_6/tick/player_systems` — `perm/trigger` dispatch eksikti
+`perm/trigger/internal/tick_start` çağrısı base `tick/player_systems`'a eklenmişti ancak `1_21_6` overlay'indeki override dosyasına eklenmemişti. 1.21.6+ sürümlerde overlay, base dosyayı tamamen gölgelediğinden `perm/trigger` sistemi bu sürümlerde hiç tetiklenmiyordu. Satır `1_21_6/tick/player_systems.mcfunction`'a eklendi.
+
+#### `perm/trigger/internal/tick_dispatch` — ilk kez katılan oyunculara trigger enable edilmiyordu
+`$execute as @a[scores={$(name)=1..}]` satırı yalnızca skoru zaten `1` veya üzerinde olan oyuncularda çalışıyor; skoru hiç set edilmemiş oyuncular `scoreboard players enable` alamıyordu. `$execute as @a run scoreboard players enable @s $(name)` satırı eklendi — tüm oyuncular her tick'te enable alır.
+
+#### Versiyon referansları güncellendi
+`load/all`, `finalize`, `validate`, `version_set`, `version_warn` dosyalarındaki tüm `v2.0.0` / `V2.0.0` referansları `v2.0.1` olarak güncellendi; `#ame.patch` scoreboard değeri `0` → `1` olarak düzeltildi.
 
 ## v2.0.0 — 2026-03-10
 
