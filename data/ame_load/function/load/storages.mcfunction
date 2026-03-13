@@ -5,19 +5,19 @@
 # "execute unless" protected with — existing data is not overwritten.
 # ============================================
 
-# ─── Epoch counteri ────────────────────────────────────────
+# ─── Epoch counter ────────────────────────────────────────
 # BUG FIX v3.0: $epoch macro.time is NOT reset on /reload.
-# Only if it has never existed (ilk loadde) is reset;
-# so cooldowns surviand server restarts.
+# Only if it has never existed (first load) is reset;
+# so cooldowns survive server restarts.
 execute unless score $epoch macro.time matches -2147483648..2147483647 run scoreboard players set $epoch macro.time 0
 scoreboard players set $tick macro.tmp 0
 
-# ─── process_queue ozyineleme depth counteri ─────────────
+# ─── process_queue recursion depth counter ─────────────
 # BUG FIX v3.0: Reset at start of each tick; 256 limit
 # prevents stack overflow within the same tick.
 scoreboard players set $pq_depth macro.tmp 0
 
-# ─── Auto-HUD modulo sabiti ───────────────────────────────
+# ─── Auto-HUD modulo constant ───────────────────────────────
 # $pb_four = 1 → update every tick (continuous actionbar)
 scoreboard players set $pb_four macro.tmp 1
 
@@ -28,14 +28,14 @@ execute unless data storage macro:engine throttle run data modify storage macro:
 execute unless data storage macro:engine flags run data modify storage macro:engine flags set value {}
 execute unless data storage macro:engine states run data modify storage macro:engine states set value {}
 
-# ─── İzin storage ────────────────────────────────────────
+# ─── Permission storage ────────────────────────────────────
 execute unless data storage macro:engine permissions run data modify storage macro:engine permissions set value {}
 
 # ─── perm/trigger storage ─────────────────────────────────
 execute unless data storage macro:engine perm_triggers run data modify storage macro:engine perm_triggers set value {}
 execute unless data storage macro:engine perm_trigger_names run data modify storage macro:engine perm_trigger_names set value []
 
-# ─── Trigger bind listesi ────────────────────────────────
+# ─── Trigger bind list ────────────────────────────────
 execute unless data storage macro:engine trigger_binds run data modify storage macro:engine trigger_binds set value []
 
 # ─── Player PID map ───────────────────────────────────────

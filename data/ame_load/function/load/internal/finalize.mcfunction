@@ -11,7 +11,7 @@ setblock -30000000 1 1601 minecraft:redstone_block
 # ─── Admin summary (macro.debug tag) ─────────────────────
 tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.3-pre2 ","color":"aqua","bold":true},{"text":"ready ","color":"green"},{"text":"· ame.pre_version → ","color":"#555555"},{"score":{"name":"#ame.major","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"#555555"},{"score":{"name":"#ame.minor","objective":"ame.pre_version"},"color":"aqua"},{"text":".","color":"#555555"},{"score":{"name":"#ame.patch","objective":"ame.pre_version"},"color":"aqua"}]
 
-# ─── Broadcast: yükleme tamamlandı ───────────────────────
+# ─── Broadcast: loading completed ───────────────────────
 tellraw @a ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"v2.0.3-pre2 ","color":"aqua"},{"text":"loaded.","color":"green"}]
 
 # ─── AME log buffer (INFO) ────────────────────────────────

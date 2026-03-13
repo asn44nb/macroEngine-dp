@@ -3,7 +3,7 @@
 # ============================================
 # Belirtilen bolgenin dis yuzeyini doldurur,
 # IC kismi AIR ile bosaltir (fill hollow modu).
-# Bosa odacik / ic mekan olusturma icin idealdir.
+# Bosa odacik / ic mekan olusturma for idealdir.
 #
 # Kullanim senaryolari:
 # - Dungeon odasi olustur

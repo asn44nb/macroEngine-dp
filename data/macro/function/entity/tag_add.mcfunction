@@ -1,17 +1,17 @@
 # ============================================
 # macro:entity/tag_add
 # ============================================
-# Belirtilen type ve mevcut tag'e sahip tum entitylere
-# yeni bir tag ekler.
+# Belirtilen type ve current tag'e sahip all entitylere
+# yeni bir tag adds.
 #
-# Kullanim senaryolari:
-# - Dalga 2'deki mobler icin "elite" tag ekle
-# - Belirli tüm NPC'leri "active" olarak isaretle
+# Usage scenarios:
+# - Dalga 2'deki mobler for "elite" tag ekle
+# - Belirli all NPC'leri "active" olarak isaretle
 # - Filtreli grup etiketleme
 #
 # INPUT: macro:input
 # type : <string> — Entity type
-# filter : <string> — Mevcut tag (filtreleme icin)
+# filter : <string> — Mevcut tag (filtreleme for)
 # new_tag : <string> — Eklenecek yeni tag
 #
 # EXAMPLE:

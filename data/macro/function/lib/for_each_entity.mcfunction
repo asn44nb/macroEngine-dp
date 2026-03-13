@@ -1,19 +1,19 @@
 # ============================================
 # macro:lib/for_each_entity
 # ============================================
-# Belirtilen type ve tag'e sahip her entity OLARAK
+# Belirtilen with specified type and tag each entity AS
 # istenen fonksiyonu run eder.
 # Her iterasyonda @s o entity'ye esit olur.
 #
 # Kullanim senaryolari:
 # - Tum arena dusmanlarina hasar ver
 # - Her NPC'ye farkli efekt uygula
-# - Her armor_stand icin custom veri isle
+# - Her armor_stand for custom veri isle
 #
 # INPUT: macro:input
 # type : <string> — Entity type
 # tag : <string> — Entity tag
-# func : <string> — Her entity icin run edilecek fonksiyon (namespace:path)
+# func : <string> — Her entity for run edilecek fonksiyon (namespace:path)
 #
 # EXAMPLE:
 # data modify storage macro:input type set value "minecraft:zombie"

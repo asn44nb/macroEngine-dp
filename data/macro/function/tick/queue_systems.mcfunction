@@ -1,8 +1,8 @@
 # ============================================
-# macro:tick/queue_systems — Kuyruk İşleme Sistemleri
+# macro:tick/queue_systems — Queue Processing Systems
 # ============================================
 # Flag: #m_queue macro.Flags
-# - Kuyruk işleme fonksiyonu
+# - Queue processing function
 # ============================================
 
 function macro:lib/process_queue

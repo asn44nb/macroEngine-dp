@@ -5,9 +5,10 @@
 # To cancel: call macro:lib/schedule_cancel with the same key.
 # To renew: call macro:lib/schedule_renew inside the function.
 #
-# BUG FIX v3.1: Re-calling with the same key will NOT add a
-# duplicate entry to the queue — only func/interval is updated.
-# Call schedule_cancel first to RESET the timer.
+# BUG FIX v3.2: Re-calling with the same key will now RESET the timer.
+# The old behavior (update func/interval without resetting timer) was
+# confusing. Now calling schedule with an existing key cancels the
+# old schedule and starts a new one with the full interval.
 #
 # INPUT: macro:input { func:"<namespace:path>", interval:<tick>, key:"<schedule_id>" }
 # EXAMPLE:
@@ -17,12 +18,10 @@
 # function macro:lib/schedule with storage macro:input {}
 # ============================================
 
-# Key already exists? → Only update func/interval data, do not re-queue.
-$execute if data storage macro:engine schedules.$(key) run data modify storage macro:engine schedules.$(key).func set value "$(func)"
-$execute if data storage macro:engine schedules.$(key) run data modify storage macro:engine schedules.$(key).interval set value $(interval)
-$execute if data storage macro:engine schedules.$(key) run return 0
+# If key exists, remove it from queue and storage (will be re-added below)
+$execute if data storage macro:engine schedules.$(key) run data remove storage macro:engine schedules.$(key)
 
-# New key: persist entry and enqueue.
+# Add new schedule entry and enqueue
 $data modify storage macro:engine schedules.$(key).func set value "$(func)"
 $data modify storage macro:engine schedules.$(key).interval set value $(interval)
 $data modify storage macro:engine queue append value {func:"$(func)", delay:$(interval)}

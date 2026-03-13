@@ -1,7 +1,7 @@
 # ============================================
 # macro:perm/trigger/unbind
 # ============================================
-# İsimli trigger'den belirtilen değerin tüm bağlarını kaldırır.
+# Removes all binds of the specified value from the named trigger.
 #
 # INPUT: macro:input { name:"<trigger_adi>", value:<int> }
 # ============================================

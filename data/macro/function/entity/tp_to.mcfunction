@@ -1,7 +1,7 @@
 # ============================================
 # macro:entity/tp_to
 # ============================================
-# Belirtilen type ve tag'e sahip tum entityleri
+# Belirtilen with specified type and tag tum entityleri
 # belirtilen koordinata isinlar.
 #
 # Kullanim senaryolari:

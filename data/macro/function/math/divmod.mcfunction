@@ -1,14 +1,14 @@
 # ============================================
 # macro:math/divmod
 # ============================================
-# Tam bölme ve kalanı TEK seferde döndürür.
-# macro:math/mod + manuel bölmenin birleşik versiyonu.
+# Returns division and remainder in a SINGLE pass.
+# Combined version of macro:math/mod + manual division.
 #
-# Minecraft scoreboard /= operatörü sıfıra doğru truncate eder (C-style);
-# bu fonksiyon remainder'ı her zaman [0, divisor) aralığında döndürür
-# (floored / safe mod — macro:math/mod ile tutarlı).
+# Minecraft scoreboard /= operator truncates toward zero (C-style);
+# this function returns the remainder always in the [0, divisor) range
+# (floored / safe mod — consistent with macro:math/mod).
 #
-# divisor <= 0 ise her iki alan 0 olarak set edilir (güvenli çıkış).
+# If divisor <= 0, both fields are set to 0 (safe exit).
 #
 # INPUT: macro:input { value:<int>, divisor:<int> }
 # OUTPUT: macro:output { quotient:<int>, remainder:<int> }
@@ -23,7 +23,7 @@
 $scoreboard players set $dvm_v macro.tmp $(value)
 $scoreboard players set $dvm_d macro.tmp $(divisor)
 
-# divisor <= 0 → güvenli çıkış
+# divisor <= 0 → safe exit
 execute if score $dvm_d macro.tmp matches ..0 run data modify storage macro:output quotient set value 0
 execute if score $dvm_d macro.tmp matches ..0 run data modify storage macro:output remainder set value 0
 execute if score $dvm_d macro.tmp matches ..0 run return 0

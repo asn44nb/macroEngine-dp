@@ -1,9 +1,9 @@
 # ============================================
 # macro:perm/trigger/bind_cmd
 # ============================================
-# İsimli trigger'e değer-komut bağlar (fonksiyon değil).
+# Named trigger'e dif-command binds (function not).
 #
-# INPUT: macro:input { name:"<trigger_adi>", value:<int>, cmd:"<komut>", perm:"<izin>" }
+# INPUT: macro:input { name:"<trigger_adi>", value:<int>, cmd:"<command>", perm:"<permission>" }
 # ============================================
 
 $scoreboard objectives add $(name) trigger

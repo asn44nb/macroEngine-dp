@@ -2,9 +2,9 @@
 # macro:geo/as_nearby_player
 # ============================================
 # Belirtilen tag'e sahip entity'nin yakinindaki (distance..limit=1)
-# bir oyuncuyu OLARAK ve KONUMUNDA fonksiyonu calistirir.
+# bir playeryu AS ve AT fonksiyonu calistirir.
 # NPC'lerin, turret'lerin veya tetikleyici objelerinin
-# en yakin oyuncuya tepki vermesi icin idealdir.
+# en yakin playerya tepki vermesi for idealdir.
 #
 # INPUT: macro:input
 # distance : <float> — Arama yaricapi (blok)

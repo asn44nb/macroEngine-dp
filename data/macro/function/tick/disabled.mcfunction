@@ -1,8 +1,8 @@
 # ============================================
-# macro:tick/disabled — Devre Dışı Sistemler
+# macro:tick/disabled — Disabled Systems
 # ============================================
-# Bu dosya sistemler devre dışı bırakıldığında çalışır
-# Flag değerleri 0 olduğunda bu fonksiyon çağrılır
+# This file runs when systems are left disabled
+# This function is called when flag values are 0
 # ============================================
 
-# Boş - sistemler devre dışı
+# Empty - systems disabled

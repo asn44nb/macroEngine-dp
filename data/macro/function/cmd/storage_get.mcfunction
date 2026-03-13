@@ -1,14 +1,14 @@
 # ============================================
-# macro:cmd/storage_get [base fallback]
+# macro:cmd/storage_get [base fallbopenk]
 # ============================================
-# Belirtilen storage yolunun degerini @s'ye gosterir.
-# 1.21.6+ overlay bu fonksiyonu hover_event / click_event ile override eder.
+# Belirtilen storage yolunun value @s'ye displays.
+# 1.21.6+ overlay bu functionu hover_event / click_event ile override eder.
 # Base version uses a plain tellraw without new event syntax.
 #
-# BUG FIX v1.0.6-pre2: Bu fonksiyon base'de eksikti.
-# Pre-1.21.6 surumlerinde cagrildiginda "Unknown function" hatasına yol aciyordu.
+# BUG FIX v1.0.6-pre2: Bu function base'de eksikti.
+# When called in pre-1.21.6 versions, it led to "Unknown function" error.
 #
-# INPUT: macro:input { storage:"<namespace:id>", nbt:"<path>" }
+# INPUT: macro:input { storage:"<namespopene:id>", nbt:"<path>" }
 #
 # EXAMPLE:
 # data modify storage macro:input storage set value "macro:engine"

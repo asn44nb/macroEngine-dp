@@ -2,7 +2,7 @@
 # macro:cmd/trigger_set
 # ============================================
 # Bir playernun trigger objective valueini setr.
-# Playerlarin /trigger komutuyla etkilesimi icin scoreboard trigger
+# Playerlarin /trigger komutuyla etkilesimi for scoreboard trigger
 # objective'ine value atar.
 #
 # INPUT: macro:input { player:"<player>", objective:"<trigger_adi>", value:<int> }

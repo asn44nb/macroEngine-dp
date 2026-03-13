@@ -1,14 +1,14 @@
 # ============================================
 # macro:perm/grant
 # ============================================
-# Playerya izin verir.
-# Storage kalıcı kayıt (offline dahil), entity tag runtime hızlı erişim.
-# tag format: perm.<perm_adi> (Java playerdata'ya kaydedilir — kalıcı)
+# Playerya permission grants.
+# Storage persistent record (including offline), entity tag runtime fast access.
+# tag format: perm.<perm_name> (saved to Java playerdata — persistent)
 #
-# Pid-based targeting: @a[name=...] yerine macro.pid scoreboard
-# kullanılır — offline-mode sunucularda duplicate-name güvenlidir.
+# Pid-based targeting: @a[name=...] instead of macro.pid scoreboard
+# used — safe for duplicate-name on offline-mode servers.
 #
-# INPUT: macro:input { player:"<n>", perm:"<izin_adi>" }
+# INPUT: macro:input { player:"<n>", perm:"<permission_name>" }
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

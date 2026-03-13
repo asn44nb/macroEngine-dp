@@ -6,7 +6,7 @@
 #
 # Kullanim senaryolari:
 # - Boss health bar'i isimlendirme
-# - NPC'nin ismini oyuncuya ozel degistir
+# - NPC'nin ismini playerya ozel degistir
 # - Custom mob ad guncelleme (dalga numarasi vs)
 #
 # INPUT: macro:input

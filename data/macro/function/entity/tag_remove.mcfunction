@@ -11,7 +11,7 @@
 #
 # INPUT: macro:input
 # type : <string> — Entity type
-# filter : <string> — Mevcut tag (filtreleme icin)
+# filter : <string> — Mevcut tag (filtreleme for)
 # remove_tag : <string> — Kaldirilacak tag
 #
 # EXAMPLE:

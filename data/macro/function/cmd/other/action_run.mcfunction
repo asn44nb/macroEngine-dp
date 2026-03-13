@@ -1,7 +1,7 @@
 # ============================================
 # macro:cmd/other/action_run
 # ============================================
-# Belirtilen oyuncu OLARAK ve oyuncunun KONUMUNDA
+# Belirtilen player AS ve playernun AT
 # dynamically executes macro:cmd/$(type)
 # INPUT: macro:input { player:"<n>", type:"<cmd_type>", arguments:"<with ...>" }
 # ============================================

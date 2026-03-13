@@ -1,14 +1,14 @@
 # ============================================
 # macro:cmd/other/multi_cmd/from_input
 # ============================================
-# macro:input.list'teki komut listesini okuyup çalıştırır.
-# Kolaylık wrapper'ı — _mcmd_list'i elle set etmek gerekmez.
+# macro:input.list'teki command listni okuyup runs.
+# Convenience wrapper — no need to manually set _mcmd_list.
 #
 # KULLANIM:
-# data modify storage macro:input list set value ["say Merhaba", "give @s diamond 1"]
+# data modify storage macro:input list set value ["count Merhaba", "give @s diamond 1"]
 # function macro:cmd/other/multi_cmd/from_input
 #
-# NOTE: Liste macro:input.list içinde olmalı (list anahtarı).
+# NOTE: List must be inside macro:input.list (list key).
 # ============================================
 
 data modify storage macro:engine _mcmd_list set from storage macro:input list

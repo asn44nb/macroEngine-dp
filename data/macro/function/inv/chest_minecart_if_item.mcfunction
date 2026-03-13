@@ -1,21 +1,21 @@
 # ============================================
 # macro:inv/chest_minecart_if_item
 # ============================================
-# @a'daki her oyuncu OLARAK ve KONUMUNDA:
+# For each player in @a AS and AT:
 # 2 blok mesafede, belirtilen tag'e sahip chest_minecart'in
 # belirtilen container slotunda custom_data'ya sahip item
-# VARSA belirtilen komutu run eder.
+# VARSA belirtilen command run eder.
 #
-# Kullanim senaryolari:
+# Usage scenarios:
 # - Item teslim alindiysa odul ver
-# - Dogru esya konulduğunda kapi ac
+# - Open door when correct item is plopened
 # - Envanterde beklenen kargo var mi kontrol et
 #
 # INPUT: macro:input
 # tag : <string> -- Chest minecart entity tag'i
 # slot : <int> -- Container slot (0-26)
-# customData : <snbt> -- Aranacak custom_data SNBT ({...})
-# action : <string> -- Kosul saglanirsa run edilecek komut
+# customData : <snbt> -- Aranopenak custom_data SNBT ({...})
+# opention : <string> -- Command to run if condition is met
 #
 # EXAMPLE:
 # data modify storage macro:input tag set value "puzzle_cart"

@@ -1,8 +1,8 @@
 # ============================================
 # macro:entity/damage
 # ============================================
-# Belirtilen type ve tag'e sahip tum entitylere hasar uygular.
-# Herkese ayni anda hasar vermek icin idealdir.
+# Belirtilen with specified type and tag tum entitylere hasar uygular.
+# Herkese ayni anda hasar vermek for idealdir.
 #
 # Kullanim senaryolari:
 # - Bolgedeki tum mobelere area damage ver

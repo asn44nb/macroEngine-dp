@@ -1,11 +1,11 @@
 # ============================================
 # macro:cmd/other/multi_cmd/run_at
 # ============================================
-# _mcmd_list içindeki komutları belirtilen koordinatta
-# çalıştırır (executor değişmez).
+# _mcmd_list inside commands specified koordinatta
+# runs (executor unchanged).
 #
 # INPUT (makro): macro:input { x:"<x>", y:"<y>", z:"<z>" }
-# ÖN KOŞUL: macro:engine _mcmd_list dolu olmalı
+# PREREQUISITE: macro:engine _mcmd_list must be filled
 #
 # KULLANIM:
 # data modify storage macro:engine _mcmd_list set value ["setblock ~ ~ ~ stone", "particle flame ~ ~ ~"]

@@ -1,11 +1,11 @@
 # ============================================
 # macro:cmd/other/multi_cmd/internal/exec
 # ============================================
-# Tek bir komutu çalıştıran makro çekirdeği.
-# INPUT (makro): { current_cmd:"<komut>" }
+# Macro core that runs a single command.
+# INPUT (makro): { current_cmd:"<command>" }
 #
 # $execute run $(current_cmd) paterni ile
-# mevcut executor ve konumda komutu tetikler.
+# current executor ve konumda command tetikler.
 # ============================================
 
 $execute run $(current_cmd)

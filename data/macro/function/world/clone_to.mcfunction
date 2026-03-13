@@ -3,7 +3,7 @@
 # ============================================
 # Belirtilen kaynaktan hedef konuma blok kopyalar.
 # macro:cmd/clone ile ayni yapida, world/ modulu altinda
-# semantik tutarlilik icin yer alir.
+# semantik tutarlilik for yer alir.
 #
 # Kullanim senaryolari:
 # - Arena reset: yedek template'dan aktif alana kopyala

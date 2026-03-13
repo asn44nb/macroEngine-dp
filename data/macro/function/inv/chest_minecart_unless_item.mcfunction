@@ -1,7 +1,7 @@
 # ============================================
 # macro:inv/chest_minecart_unless_item
 # ============================================
-# @a'daki her oyuncu OLARAK ve KONUMUNDA:
+# For each player in @a AS and AT:
 # 2 blok mesafede, belirtilen tag'e sahip chest_minecart'in
 # belirtilen container slotunda custom_data'ya sahip item
 # YOKSA belirtilen komutu run eder.

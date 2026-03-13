@@ -1,7 +1,7 @@
 # ============================================
 # macro:cmd/attribute_remove_modifier
 # ============================================
-# Playerdan attribute modifier removes.
+# From player attribute modifier removes.
 #
 # INPUT: macro:input { player:"<name>", attribute:"<attribute_id>", id:"<modifier_id>" }
 #

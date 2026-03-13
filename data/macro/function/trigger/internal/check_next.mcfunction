@@ -5,10 +5,10 @@
 # For each element: value == $tc_player ise fonksiyon/komutu run eder.
 # macro:input'e hic dokunmaz — tick context guvenlidir.
 #
-# BUG FIX: onceden her bind icin hem call hem call2 kosulsuz cagriliyordu.
+# BUG FIX: previously both call and call2 were called unconditionally for each bind.
 # Bind sadece func iceriyorsa call2 bos parametreyle calisip hata veriyordu;
 # sadece cmd iceriyorsa call bos parametreyle hata veriyordu.
-# Duzeltme: if data ile .func ve .cmd varligini kontrol et, sadece mevcut olani calistir.
+# Duzeltme: if data ile .func ve .cmd varligini kontrol et, sadece mevcut withi calistir.
 # ============================================
 
 execute unless data storage macro:engine _tc_binds[0] run return 0

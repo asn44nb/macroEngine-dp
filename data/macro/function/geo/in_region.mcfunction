@@ -1,11 +1,11 @@
 # ============================================
 # macro:geo/in_region
 # ============================================
-# Belirtilen oyuncu, tanimli dikdortgenler prizmasindan (AABB) icerisinde ise
+# Belirtilen player, tanimli dikdortgenler prizmasindan (AABB) icerisinde ise
 # komutu run eder. x/y/z min kosesi; dx/dy/dz boyutlari tanimlar.
 #
 # Kullanim senaryolari:
-# - Safe zone kontrolu: oyuncu koreografide mi
+# - Safe zone kontrolu: player koreografide mi
 # - Trigger zone: belirli alana girince event fire
 # - Bolge kilidi: bu alanda degilse engelle
 #

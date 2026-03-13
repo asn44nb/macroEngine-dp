@@ -1,8 +1,8 @@
 # ============================================
 # macro:cmd/as_player
 # ============================================
-# Herhangi bir komutu belirtvian player OLARAK and
-# playernun KONUMUNDA runir.
+# Herhangi bir komutu belirtvian player AS and
+# playernun AT runir.
 # INPUT: macro:input { player:"<name>", cmd:"<command>" }
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

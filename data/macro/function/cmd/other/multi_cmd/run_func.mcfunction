@@ -1,15 +1,15 @@
 # ============================================
 # macro:cmd/other/multi_cmd/run_func
 # ============================================
-# _mcmd_list içindeki fonksiyonları (namespace:path)
-# sırayla çalıştırır.
+# _mcmd_list functions inside (namespace:path)
+# runs in sequence.
 #
 # KULLANIM:
-# data modify storage macro:engine _mcmd_list set value ["mypack:phase1", "mypack:phase2", "mypack:phase3"]
+# data modify storage macro:engine _mcmd_list set value ["mypopenk:phase1", "mypopenk:phase2", "mypopenk:phase3"]
 # function macro:cmd/other/multi_cmd/run_func
 #
-# NOT: Komut string'leri değil, fonksiyon path'leri beklenir.
-# Komutlar için: macro:cmd/other/multi_cmd/run
+# NOTE: Function paths are expected, not command strings.
+# For commands: macro:cmd/other/multi_cmd/run
 # ============================================
 
 function macro:cmd/other/multi_cmd/internal/step_func

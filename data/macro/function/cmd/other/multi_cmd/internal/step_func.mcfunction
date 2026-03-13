@@ -1,9 +1,9 @@
 # ============================================
 # macro:cmd/other/multi_cmd/internal/step_func
 # ============================================
-# _mcmd_list'i iter eder — her eleman bir fonksiyon
+# _mcmd_list iterates — each element is a function
 # namespace:path string'idir.
-# $function $(current_cmd) makrosu ile çalıştırır.
+# $function $(current_cmd) makrosu ile runs.
 # ============================================
 
 execute unless data storage macro:engine _mcmd_list[0] run return 0

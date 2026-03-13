@@ -1,13 +1,13 @@
 # ============================================
 # macro:cmd/other/multi_cmd/from_input_as
 # ============================================
-# macro:input.list'teki komut listesini okuyup
-# belirtilen oyuncu olarak çalıştırır.
+# macro:input.list'teki command listni okuyup
+# belirtilen player olarak runs.
 #
-# INPUT (makro): macro:input { list:[...], player:"<oyuncu>" }
+# INPUT (makro): macro:input { list:[...], player:"<player>" }
 #
 # KULLANIM:
-# data modify storage macro:input list set value ["say Hi", "give @s apple 1"]
+# data modify storage macro:input list set value ["count Hi", "give @s apple 1"]
 # data modify storage macro:input player set value "Steve"
 # function macro:cmd/other/multi_cmd/from_input_as with storage macro:input {}
 # ============================================

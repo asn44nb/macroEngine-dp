@@ -1,8 +1,8 @@
 # ============================================
 # macro:perm/trigger/internal/unbind_reinsert
 # ============================================
-# unbind_filter tarafından çağrılır.
-# Eşleşmeyen bind'i perm_triggers.$(name)'e geri ekler.
+# is called by unbind_filter.
+# Adds non-matching bind back to perm_triggers.$(name).
 #
 # INPUT (makro): storage macro:engine _pt_filter_ctx = {name:"<trigger_adi>"}
 # ============================================

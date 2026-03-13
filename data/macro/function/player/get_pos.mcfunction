@@ -1,8 +1,8 @@
 # ============================================
 # macro:player/get_pos
 # ============================================
-# Oyuncunun blok koordinatlarını döndürür.
-# Oyuncu çevrimiçi değilse output alanları set edilmez ve found:0b döner.
+# Returns the player's block coordinates.
+# If player is offline, output fields are not set and found:0b is returned.
 #
 # INPUT: macro:input { player:"<n>" }
 # OUTPUT: macro:output { x:<int>, y:<int>, z:<int>, found:1b/0b }

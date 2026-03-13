@@ -53,7 +53,7 @@ scoreboard players operation $d3d_sq macro.tmp += $d3d_dz macro.tmp
 
 # ⚠ SINIR: d3d_sq = dx²+dy²+dz² int32 sinirini (2,147,483,647) asabilir.
 # Her eksen yaklasik 26,000 bloktan buyukse overflow olusabilir ve sonuc yanlis cikabilir.
-# Normal harita kullanimi icin (< 10,000 blok) sorun yoktur.
+# Normal harita kullanimi for (< 10,000 blok) sorun yoktur.
 
 # Zero-distance edge case
 execute if score $d3d_sq macro.tmp matches 0 run data modify storage macro:output result set value 0

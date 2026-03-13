@@ -1,17 +1,17 @@
 # ============================================
 # macro:inv/clear_custom
 # ============================================
-# Oyuncunun envanterindeki belirtilen custom_data'ya sahip
-# item'lari belirtilen miktarda siler.
-# count: 0 → hepsini sil; pozitif sayi → o kadar sil.
+# Oyuncunun inventoryindeki belirtilen custom_data'ya sahip
+# item'lari belirtilen miktarda deleteer.
+# count: 0 → hepsini delete; pozitif counti → o kadar delete.
 #
-# Kullanim senaryolari:
-# - Odeme al (N adet coin sil)
-# - Quest item teslim alındiktan sonra sil
-# - Kullanim sonrasi tek kullanımlik item yok et
+# Usage scenarios:
+# - Odeme al (N adet coin delete)
+# - Delete quest item after delivery
+# - Destroy single-use item after use
 #
 # INPUT: macro:input
-# player : <string> — Oyuncu adi
+# player : <string> — Player name
 # customData : <snbt> — Silinecek item custom_data SNBT ({...})
 # count : <int> — Silinecek miktar (0 = hepsi)
 #

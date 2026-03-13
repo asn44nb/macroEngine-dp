@@ -1,19 +1,19 @@
 # ============================================
 # macro:cmd/effect_give_all
 # ============================================
-# Tum online oyunculara ayni etkiyi ayni anda verir.
-# macro:cmd/effect_give'den farki: oyuncu adi gerekmez.
+# Gives the same effect to all online players at once.
+# Difference from macro:cmd/effect_give: no player name needed.
 #
-# Kullanim senaryolari:
-# - Round baslangicinda herkese Speed
-# - Cutscene sirasinda herkese Blindness
-# - Oyun biterken herkese Saturation
+# Usage scenarios:
+# - Give Speed to everyone at round start
+# - Give Blindness to everyone during cutscene
+# - Give Saturation to everyone when game ends
 #
 # INPUT: macro:input
-# effect : <string> — Etki id'si (minecraft:speed vb.)
-# duration : <int> — Sure (saniye; 0 = surekli)
-# amplifier : <int> — Guc seviyesi (0 = seviye 1)
-# hide : <string> — "true" | "false" — partikul gizle
+# effect : <string> — Effect id (minecraft:speed etc.)
+# duration : <int> — Duration (seconds; 0 = infinite)
+# amplifier : <int> — Power level (0 = level 1)
+# hide : <string> — "true" | "false" — hide particles
 #
 # EXAMPLE:
 # data modify storage macro:input effect set value "minecraft:slowness"

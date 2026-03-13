@@ -1,7 +1,7 @@
 # ============================================
 # macro:inv/player_if_item
 # ============================================
-# Belirtilen oyuncunun herhangi bir slotunda
+# Belirtilen playernun herhangi bir slotunda
 # custom_data'ya sahip item VARSA komutu run eder.
 #
 # Kullanim senaryolari:

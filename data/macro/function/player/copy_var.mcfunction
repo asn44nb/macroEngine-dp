@@ -1,7 +1,7 @@
 # ============================================
 # macro:player/copy_var
 # ============================================
-# Copy a player variable to another player.
+# Copy a player variable to anoteach player.
 # INPUT: macro:input { from:"<source>", to:"<target>", key:"<variable>" }
 # ============================================
 

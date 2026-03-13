@@ -1,7 +1,7 @@
 # ============================================
 # macro:geo/near_entity
 # ============================================
-# Oyuncunun belirtilen mesafe yaricapinda, istenen type ve tag'e sahip
+# Oyuncunun belirtilen mesafe yaricapinda, istenen with specified type and tag
 # entity VARSA komutu run eder.
 #
 # Kullanim senaryolari:

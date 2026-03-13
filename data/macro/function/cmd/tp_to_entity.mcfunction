@@ -1,7 +1,7 @@
 # ============================================
 # macro:cmd/tp_to_entity
 # ============================================
-# Oyuncuyu, belirtilen type ve tag'e sahip entity'nin
+# Oyuncuyu, belirtilen with specified type and tag entity'nin
 # konumuna isinlar.
 #
 # Kullanim senaryolari:

@@ -1,17 +1,17 @@
 # ============================================
 # macro:entity/count
 # ============================================
-# Belirtilen type ve tag'e sahip entitylerin sayisini
-# macro:output'a yazar.
+# Writes the count of entities with the specified type and tag
+# to macro:output.
 #
-# Kullanim senaryolari:
-# - Dalgadaki kalan dusman sayisini say
-# - Kaç NPC aktif oldugunu oge
-# - Entity limiti kontrol et (max 10 vs)
+# Usage scenarios:
+# - Count remaining enemies in the wave
+# - Learn how many NPCs are active
+# - Check entity limit (max 10 etc.)
 #
 # INPUT: macro:input
-# type : <string> — Entity type (minecraft:zombie vb.)
-# tag : <string> — Entity tag (bos birakmak icin \"!nonexistent\" kullan)
+# type : <string> — Entity type (minecraft:zombie etc.)
+# tag : <string> — Entity tag (use "!nonexistent" to leave empty)
 #
 # OUTPUT: macro:output { count:<int> }
 #
@@ -19,7 +19,7 @@
 # data modify storage macro:input type set value "minecraft:zombie"
 # data modify storage macro:input tag set value "wave_1"
 # function macro:entity/count with storage macro:input {}
-# # → macro:output count okunabilir
+# # → macro:output count can be read
 # data get storage macro:output count
 # ============================================
 

@@ -1,7 +1,7 @@
 # ============================================
 # macro:entity/kill_tagged
 # ============================================
-# Belirtilen type ve tag'e sahip tum entityleri oldurmek.
+# Belirtilen with specified type and tag tum entityleri oldurmek.
 #
 # Kullanim senaryolari:
 # - Dalga bitti, kalan mobler temizle

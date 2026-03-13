@@ -1,15 +1,15 @@
 # ============================================
 # macro:entity/for_each
 # ============================================
-# Belirtilen type ve tag'e sahip her entity OLARAK ve
-# o entity'nin KONUMUNDA istenen fonksiyonu calistirir.
+# For each entity with specified type and tag AS and
+# o entity'nin AT istenen fonksiyonu calistirir.
 # macro:lib/for_each_entity ile aynidir; entity/ modulu
 # altinda erisilebilir alias.
 #
 # INPUT: macro:input
 # type : <string> — Entity type
 # tag : <string> — Entity tag
-# func : <string> — Her entity icin run edilecek fonksiyon (namespace:path)
+# func : <string> — Her entity for run edilecek fonksiyon (namespace:path)
 #
 # EXAMPLE:
 # data modify storage macro:input type set value "minecraft:armor_stand"

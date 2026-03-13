@@ -1,19 +1,19 @@
 # ============================================
 # macro:entity/summon_at_player
 # ============================================
-# Belirtilen oyuncunun tam konumunda entity doğurur.
-# macro:cmd/summon'dan farki: koordinat vermek yerine
-# oyuncu adi yazilir; entity oyuncunun @ konumunda cikar.
+# Spawns an entity at the exact location of the specified player.
+# Difference from macro:cmd/summon: instead of giving coordinates
+# player name is written; entity appears at the player's location.
 #
-# Kullanim senaryolari:
-# - Oyuncunun uzerine düsman spawnla
-# - Oyuncunun konumunda efekt entitysi olustur
-# - Player'in tam yanina NPC cagir
+# Usage scenarios:
+# - Spawn enemy on top of player
+# - Create effect entity at player's location
+# - Summon NPC right next to player
 #
 # INPUT: macro:input
-# player : <string> — Oyuncu adi
-# entity : <string> — Entity type (minecraft:zombie vb.)
-# nbt : <snbt> — Entity NBT ({} bos bicimde)
+# player : <string> — Player name
+# entity : <string> — Entity type (minecraft:zombie etc.)
+# nbt : <snbt> — Entity NBT ({} empty form)
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

@@ -4,7 +4,7 @@
 # Fires the event after the specified delay instead of immediately.
 # Use to spread current tick load or for delayed triggering.
 #
-# BUG FIX v3.2: _fdeferred yerine event adi dogrudan queue item'a
+# BUG FIX v3.2: _fdeferred instead of event adi dogrudan queue item'a
 # gomulur. Boylece multiple fire_queued calls within the same tick
 # will not overwrite each other's event name.
 #

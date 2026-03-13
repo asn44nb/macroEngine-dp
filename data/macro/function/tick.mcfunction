@@ -1,38 +1,38 @@
 # ============================================
-# macro:tick — Her tick'te çalışır (Flag Kontrollü Sistem)
+# macro:tick — Runs every tick (Flag-Controlled System)
 # ============================================
-# Bu dosya sistemleri flag'lere göre kategorize edilmiş şekilde çağırır
-# Flag Değerleri (macro.Flags scoreboard'u):
-# - #m_time: Zaman ve sayaç sistemleri (epoch, tick)
-# - #m_queue: Kuyruk işleme sistemleri
-# - #m_player: Oyuncu tetikleyici sistemleri (menu, run, action)
-# - #m_hud: Otomatik HUD sistemleri (progress bar)
-# - #m_admin: Admin ve debug sistemleri
+# This file calls systems categorized by flags
+# Flag Values (macro.Flags scoreboard):
+# - #m_time: Time and counter systems (epoch, tick)
+# - #m_queue: Queue processing systems
+# - #m_player: Player trigger systems (menu, run, action)
+# - #m_hud: Automatic HUD systems (progress bar)
+# - #m_admin: Admin and debug systems
 # 
-# Flag = 1: Sistem aktif
-# Flag = 0: Sistem devre dışı (disabled fonksiyonu çalışır)
+# Flag = 1: System active
+# Flag = 0: System disabled (disabled function runs)
 # ============================================
 
 execute unless entity @a run return 0
 
 execute unless data storage macro:engine global{loaded:1b} run return 0
 
-# ── Zaman Sistemleri ──
+# ── Time Systems ──
 execute if score #m_time macro.Flags matches 1 run function macro:tick/time_systems
 execute if score #m_time macro.Flags matches 0 run function macro:tick/disabled
 
-# ── Kuyruk Sistemleri ──
+# ── Queue Systems ──
 execute if score #m_queue macro.Flags matches 1 run function macro:tick/queue_systems
 execute if score #m_queue macro.Flags matches 0 run function macro:tick/disabled
 
-# ── Oyuncu Sistemleri ──
+# ── Player Systems ──
 execute if score #m_player macro.Flags matches 1 run function macro:tick/player_systems
 execute if score #m_player macro.Flags matches 0 run function macro:tick/disabled
 
-# ── HUD Sistemleri ──
+# ── HUD Systems ──
 execute if score #m_hud macro.Flags matches 1 run function macro:tick/hud_systems
 execute if score #m_hud macro.Flags matches 0 run function macro:tick/disabled
 
-# ── Admin Sistemleri ──
+# ── Admin Systems ──
 execute if score #m_admin macro.Flags matches 1 run function macro:tick/admin_systems
 execute if score #m_admin macro.Flags matches 0 run function macro:tick/disabled

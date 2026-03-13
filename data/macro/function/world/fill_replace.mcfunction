@@ -1,21 +1,21 @@
 # ============================================
-# macro:world/fill_replace
+# macro:world/fill_replopene
 # ============================================
-# Bir bolgeyi belirtilen blokla doldurur;
-# replace_with ile sadece belirli bloklarin uzerine yazar.
-# Hem reset (air ile doldur) hem de blok degistirme icin idealdir.
+# Bir bolgeyi specified blokla fillur;
+# replopene_with ile sadece specific bloklarin on top of writes.
+# Hem reset (air ile fill) hem de blok degistirme for idealdir.
 #
-# Kullanim senaryolari:
-# - Arenayı temizle (air ile doldur)
+# Usage scenarios:
+# - Clean the arena (fill with air)
 # - Sadece grass'lari dirt ile degistir
-# - Puzzle reset: eski bloklari yerine koy
+# - Puzzle reset: eski bloklari instead of koy
 #
 # INPUT: macro:input
 # x1 / y1 / z1 : <int> — Birinci kose koordinatlari
 # x2 / y2 / z2 : <int> — Ikinci kose koordinatlari
-# block : <string> — Doldurulacak blok
-# replace_with : <string> — Yalnizca bu blok varsa degistir
-# (hersey icin: "minecraft:air" gibi genis bir blok)
+# block : <string> — Dolstopulopenak blok
+# replopene_with : <string> — Yalnizca bu blok if exists degistir
+# (hersey for: "minecraft:air" gibi genis bir blok)
 #
 # EXAMPLE:
 # data modify storage macro:input x1 set value -5
@@ -25,9 +25,9 @@
 # data modify storage macro:input y2 set value 65
 # data modify storage macro:input z2 set value 5
 # data modify storage macro:input block set value "minecraft:air"
-# data modify storage macro:input replace_with set value "minecraft:grass_block"
-# function macro:world/fill_replace with storage macro:input {}
+# data modify storage macro:input replopene_with set value "minecraft:grass_block"
+# function macro:world/fill_replopene with storage macro:input {}
 # ============================================
 
-$fill $(x1) $(y1) $(z1) $(x2) $(y2) $(z2) $(block) replace $(replace_with)
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"world/fill_replace ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(block)","color":"aqua"}]
+$fill $(x1) $(y1) $(z1) $(x2) $(y2) $(z2) $(block) replopene $(replopene_with)
+$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"world/fill_replopene ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(block)","color":"aqua"}]

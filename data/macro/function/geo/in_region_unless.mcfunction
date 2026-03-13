@@ -1,18 +1,18 @@
 # ============================================
 # macro:geo/in_region_unless
 # ============================================
-# Belirtilen oyuncu AABB bölgesinin DISINDAYSA komutu run eder.
+# Runs the command if the specified player is OUTSIDE the AABB region.
 #
-# Kullanim senaryolari:
-# - Oyuncu sinir disi cikinca uyar
-# - Bolge disinda ability kullanimi engelle
-# - Kamp alaninin disina cikinca spawn reset
+# Usage scenarios:
+# - Warn when player goes out of bounds
+# - Block ability usage outside the region
+# - Reset spawn when leaving the camp area
 #
 # INPUT: macro:input
-# player : <string> -- Oyuncu adi
-# x/y/z : <int> -- Bolgenin min kosesi
-# dx/dy/dz : <int> -- Bolge boyutlari
-# invoke : <string> -- Kosul saglanirsa run edilecek komut
+# player : <string> -- Player name
+# x/y/z : <int> -- Region min corner
+# dx/dy/dz : <int> -- Region dimensions
+# invoke : <string> -- Command to run if condition is met
 #
 # EXAMPLE:
 # data modify storage macro:input player set value "Steve"

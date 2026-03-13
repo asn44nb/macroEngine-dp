@@ -1,24 +1,24 @@
 # ============================================
 # macro:perm/trigger/internal/player_dispatch
 # ============================================
-# Belirli bir oyuncu (@s) için isimli trigger'ın bind listesini iterate eder.
-# Skorunu kaydeder, sıfırlar, re-enable eder; ardından bind'leri dener.
+# Iterates the bind list of the named trigger for a specific player (@s).
+# Saves score, resets, re-enables; then tries binds.
 #
 # INPUT (makro): storage macro:engine _pt_tick_ctx = {name:"<trigger_adi>"}
-# Çağrı: AS @s (the player)
+# Call: AS @s (the player)
 # ============================================
 
-# Bu oyuncunun trigger skorunu kaydet
+# Bu playernun trigger skorunu save
 $scoreboard players operation $ptd_val macro.tmp = @s $(name)
 
-# Sıfırla ve yeniden aktif et
+# Reset and re-enable
 $scoreboard players set @s $(name) 0
 $scoreboard players enable @s $(name)
 
-# Bind listesi boşsa dur
+# Bind list emptysa stop
 $execute unless data storage macro:engine perm_triggers.$(name)[0] run return 0
 
-# Bind listesini geçici kopyaya al (orijinal bozulmasın)
+# Copy bind list to temporary (don't corrupt original)
 $data modify storage macro:engine _ptd_binds set from storage macro:engine perm_triggers.$(name)
 
 # Iterate

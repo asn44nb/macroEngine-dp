@@ -1,12 +1,12 @@
 # ============================================
 # macro:perm/revoke
 # ============================================
-# Playerdan izin alır. Storage + tag her ikisini de temizler.
+# From player permission gets. Clears both storage and tag.
 #
-# Pid-based targeting: @a[name=...] yerine macro.pid scoreboard
-# kullanılır — offline-mode sunucularda duplicate-name güvenlidir.
+# Pid-based targeting: @a[name=...] instead of macro.pid scoreboard
+# used — safe for duplicate-name on offline-mode servers.
 #
-# INPUT: macro:input { player:"<n>", perm:"<izin_adi>" }
+# INPUT: macro:input { player:"<n>", perm:"<permission_name>" }
 # ============================================
 
 execute unless entity @s[tag=macro.admin] run return run tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"✘ ","color":"red"},{"text":"Permission denied.","color":"red"}]

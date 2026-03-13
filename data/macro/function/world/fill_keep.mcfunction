@@ -1,7 +1,7 @@
 # ============================================
 # macro:world/fill_keep
 # ============================================
-# Belirtilen bolgede yalnizca AIR (bos) olan yerlere blok koyar.
+# Belirtilen bolgede yalnizca AIR (bos) with yerlere blok koyar.
 # Mevcut bloklara dokunmaz (fill keep modu).
 #
 # Kullanim senaryolari:

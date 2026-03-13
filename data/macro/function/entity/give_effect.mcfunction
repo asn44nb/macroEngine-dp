@@ -1,7 +1,7 @@
 # ============================================
 # macro:entity/give_effect
 # ============================================
-# Belirtilen type ve tag'e sahip tum entitylere efekt uygular.
+# Belirtilen with specified type and tag tum entitylere efekt uygular.
 # Hem mob hem armor_stand hem de diger entity'lere calisir.
 #
 # Kullanim senaryolari:

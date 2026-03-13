@@ -1,8 +1,8 @@
 # ============================================
 # macro:cmd/title_all
 # ============================================
-# Tum oyunculara ayni anda title gonderir.
-# Bireysel macro:cmd/title'dan farki: oyuncu adi gerekmez.
+# Tum playerlara ayni anda title gonderir.
+# Bireysel macro:cmd/title'dan farki: player adi gerekmez.
 #
 # Kullanim senaryolari:
 # - Round duyurusu (ROUND 2 basliyor!)

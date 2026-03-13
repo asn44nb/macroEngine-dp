@@ -1,7 +1,7 @@
 # ============================================
 # macro:inv/player_slot_if_item
 # ============================================
-# Belirtilen oyuncunun belirtilen SLOTUNDA
+# Belirtilen playernun belirtilen SLOTUNDA
 # custom_data'ya sahip item VARSA komutu run eder.
 #
 # SLOT REFERANSI:

@@ -1,7 +1,7 @@
 # ============================================
 # macro:cmd/advancement_revoke
 # ============================================
-# Playerdan advancement alir.
+# From player advancement alir.
 #
 # INPUT: macro:input { player:"<name>", advancement:"<namespace:id>" }
 # ============================================

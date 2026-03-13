@@ -1,9 +1,9 @@
 # ============================================
 # macro:math/minmax
 # ============================================
-# İki değerin minimumunu VE maksimumunu tek seferde döndürür.
-# macro:math/min + macro:math/max çağrısının birleşik versiyonu
-# — tek scoreboard geçişinde ikisi birden hesaplanır.
+# Returns the minimum AND maximum of two values in a single pass.
+# Combined version of macro:math/min + macro:math/max call
+# — both are calculated in a single scoreboard pass.
 #
 # INPUT: macro:input { a:<int>, b:<int> }
 # OUTPUT: macro:output { min:<int>, max:<int> }
@@ -17,11 +17,11 @@
 $scoreboard players set $mmx_a macro.tmp $(a)
 $scoreboard players set $mmx_b macro.tmp $(b)
 
-# lo = a; eğer b < a ise lo = b
+# lo = a; if b < a then lo = b
 scoreboard players operation $mmx_lo macro.tmp = $mmx_a macro.tmp
 execute if score $mmx_b macro.tmp < $mmx_a macro.tmp run scoreboard players operation $mmx_lo macro.tmp = $mmx_b macro.tmp
 
-# hi = a; eğer b > a ise hi = b
+# hi = a; if b > a then hi = b
 scoreboard players operation $mmx_hi macro.tmp = $mmx_a macro.tmp
 execute if score $mmx_b macro.tmp > $mmx_a macro.tmp run scoreboard players operation $mmx_hi macro.tmp = $mmx_b macro.tmp
 
