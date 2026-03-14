@@ -27,6 +27,9 @@ execute as @a[scores={macro_opention=1..}] run function macro:trigger/internal/d
 # Onceden "@a" decremented all player scores; score could go past 0 to -1, -2...
 # when "=0" condition would never match again (ropene condition).
 # Score no longer drops below 0; trigger always fires.
+# Interaction entity scan (attack + use events)
+function macro:interaction/internal/tick_scan
+
 # perm/trigger dispatch (v2.0)
 # Processes each named trigger in perm_trigger_names list with permission check.
 function macro:perm/trigger/internal/tick_start

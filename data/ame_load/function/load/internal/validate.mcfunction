@@ -13,7 +13,7 @@
 # ============================================
 
 # ─── Global storage init ───────────────────────────────
-execute unless data storage macro:engine global run data modify storage macro:engine global set value {version:"v2.0.3-pre2"}
+execute unless data storage macro:engine global run data modify storage macro:engine global set value {version:"v2.0.3-pre3"}
 
 # ─── Log storage init (before log/add is called) ─────
 # BUG FIX v1.0.4: Both lines are protected with unless;
@@ -29,15 +29,15 @@ execute if data storage macro:engine global{loaded:1b} run return 0
 
 # ─── Storage version check ───────────────────────────────
 # BUG FIX v2.0.0: Fallback message was stale "V1.0.6-pre4". Now reflects actual version.
-execute unless data storage macro:engine global{version:"v2.0.3-pre2"} run data modify storage macro:names temp.vers set value "V2.0.3-pre2"
-execute unless data storage macro:engine global{version:"v2.0.3-pre2"} run tellraw @a [{"text":"[AME] ","color":"aqua","bold":true},{"text":"Version mismatch — expected ","color":"red"},{"storage":"macro:names","nbt":"temp.vers","color":"yellow"},{"text":".","color":"red"}]
-execute unless data storage macro:engine global{version:"v2.0.3-pre2"} run return 0
+execute unless data storage macro:engine global{version:"v2.0.3-pre3"} run data modify storage macro:names temp.vers set value "V2.0.3-pre2"
+execute unless data storage macro:engine global{version:"v2.0.3-pre3"} run tellraw @a [{"text":"[AME] ","color":"aqua","bold":true},{"text":"Version mismatch — expected ","color":"red"},{"storage":"macro:names","nbt":"temp.vers","color":"yellow"},{"text":".","color":"red"}]
+execute unless data storage macro:engine global{version:"v2.0.3-pre3"} run return 0
 
 # ─── Scoreboard version conflict check ───────────────────
 # ame.pre_version objective: created here early (safe if already exists).
 # #ame.ver_set = 1 means a previous AME session wrote version scores.
 # BUG FIX v2.0.0: Comment and comparisons were stale from v1.0.6-pre4 (major=1, patch=6, pre=4).
-# BUG FIX v2.0.3-pre2: minor check was `matches 1` but version_set writes #ame.minor=0;
+# BUG FIX v2.0.3-pre3: minor check was `matches 1` but version_set writes #ame.minor=0;
 # caused mismatch=1 on every reload after the first, permanently blocking load.
 # Any mismatch from (major=2, minor=0, patch=3, pre=2) triggers version_warn and aborts load.
 scoreboard objectives add ame.pre_version dummy
