@@ -80,7 +80,7 @@
         }
       },
       {
-        "directory": "-1_21_4",
+        "directory": "compat_1_21_4",
         "formats": {
           "min_inclusive": 48,
           "max_inclusive": 61
