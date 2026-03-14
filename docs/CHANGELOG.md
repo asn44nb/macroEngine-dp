@@ -2,6 +2,46 @@
 
 ---
 
+## v2.0.3-pre3 — 2026-03-14
+
+### ✨ New Module: `interaction/`
+
+`minecraft:interaction` entity'leri üzerinde sol-tık (attack) ve sağ-tık (use) olaylarını dinleyen yeni modül. Birden fazla bind aynı tag'e eklenebilir; hepsi sırayla çalışır.
+
+#### Public Functions
+
+| Function | Input | Description |
+|---|---|---|
+| `interaction/spawn` | `{tag, width, height, response}` | Belirtilen tag, boyut ve ses ayarıyla interaction entity oluşturur |
+| `interaction/bind_attack` | `{tag, func}` | Tag'e sahip entity'ye saldırı olayı bağlar — saldıran oyuncu olarak çalışır |
+| `interaction/bind_use` | `{tag, func}` | Tag'e sahip entity'ye kullanım olayı bağlar — kullanan oyuncu olarak çalışır |
+| `interaction/unbind_attack` | `{tag, func}` | Belirtilen saldırı bind'ını kaldırır |
+| `interaction/unbind_use` | `{tag, func}` | Belirtilen kullanım bind'ını kaldırır |
+| `interaction/list` | `{tag}` | Tag'e kayıtlı tüm bind'ları `macro.debug` oyuncularına gösterir |
+| `interaction/remove` | `{tag}` | Tag'e ait tüm bind'ları ve entity'leri kaldırır |
+
+#### Internal Functions
+
+| Function | Description |
+|---|---|
+| `interaction/internal/tick_scan` | Her tick'te tüm interaction entity'lerini tarar; attack/use olaylarını tespit eder |
+| `interaction/internal/on_attack` | Saldırı olayını işler ve ilgili bind'ları çalıştırır |
+| `interaction/internal/on_use` | Kullanım olayını işler ve ilgili bind'ları çalıştırır |
+| `interaction/internal/dispatch` | Bind listesini iterate ederek eşleşen fonksiyonları sırayla çalıştırır |
+| `interaction/internal/check_bind` | Tek bir bind kaydını kontrol edip çalıştırır |
+| `interaction/internal/unbind_check` | Unbind işlemi için eşleşen kaydı tespit eder |
+| `interaction/internal/unbind_filter` | Eşleşmeyen bind'ları yeni listeye kopyalar (unbind filtresi) |
+
+Storage: `macro:engine interaction_binds [{tag:"...", type:"attack"|"use", func:"..."}]`
+
+#### ⚙️ Entegrasyon
+
+- `tick/player_systems.mcfunction`: `interaction/internal/tick_scan` dispatch satırı eklendi (tüm overlay'lerde)
+- `load/storages.mcfunction`: `interaction_binds` storage init eklendi
+- `load/internal/cleanup.mcfunction`: `interaction_binds` + ilgili geçici storage alanları temizleme eklendi
+
+---
+
 ## v2.0.3-pre2 — 2026-03-13
 
 ### 🐛 Bug Fixes
