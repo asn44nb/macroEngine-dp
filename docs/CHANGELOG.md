@@ -4,6 +4,42 @@
 
 ## v2.0.3 — 2026-03-14
 
+### ✨ Yeni: `macro:version`
+
+`/function macro:version` komutuyla çağıran oyuncuya AME sürüm bilgisini gösteren yeni fonksiyon.
+
+- Tüm sürüm sayıları `ame.pre_version` scoreboard'undan dinamik okunur — hardcode yok
+- `-preN` suffix'i `#ame.pre >= 1` ise gösterilir, `0` ise gizlenir (release build'ler için)
+- Author / Source satırları `click_event` ile tıklanabilir link içerir (1.21.5+ overlay'lerinde)
+- `#ame.ver_set` skoru kontrol edilerek yüklenme durumu (`● loaded` / `✖ not initialized`) gösterilir
+
+Dosyalar:
+| Katman | Dosya | click formatı |
+|---|---|---|
+| Base | `data/macro/function/version.mcfunction` | — (link yok) |
+| `compat_1_21_4` | `compat_1_21_4/data/macro/function/version.mcfunction` | — (link yok) |
+| `1_21_5` | `1_21_5/data/macro/function/version.mcfunction` | `click_event` + `url` |
+| `1_21_6` | `1_21_6/data/macro/function/version.mcfunction` | `click_event` + `url` |
+
+---
+
+### 🐛 Bug Fixes
+
+#### `all.mcfunction`, `finalize.mcfunction` — hardcode versiyon string
+`"[Macro Engine v2.0.3]"` / `"v2.0.3"` hardcode tellraw metinleri `#ame.major/minor/patch` score-based yapıya dönüştürüldü. `#ame.pre >= 1` ise `-preN` suffix ekleniyor.
+
+#### `version_warn.mcfunction` (base) — yanlış `pre` numarası
+Debug tellraw `(expected: 2 0 3 pre=3)` yazıyordu. `pre=4` olarak düzeltildi.
+
+#### `validate.mcfunction` — `#ame.pre matches 0` mismatch
+`#ame.pre` kontrol satırı `matches 0` yazıyordu; pre-release build'lerde her `/reload`'da version mismatch tetiklenip yükleme iptal ediliyordu. `matches 4` olarak düzeltildi.
+
+#### `compat_1_21_4/version.mcfunction` — `click_event` 1.21.4'te desteklenmiyor
+Author / Source satırlarına yanlışlıkla `click_event` yazılmıştı (`click_event` 1.21.5+ only). Link kaldırıldı, düz text olarak bırakıldı.
+
+---
+
+
 ### ✨ Yeni Modül: `uuid/`
 
 Entity UUID'lerini `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` formatında hex string'e çeviren tam UUID altyapısı. Java'nın negatif integer bölme hatası (`truncate` yerine `floor`) el ile düzeltilmiştir — diğer implementasyonlardaki yüksek byte hesaplama hatası bu modülde yoktur.
