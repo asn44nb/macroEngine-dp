@@ -7,7 +7,7 @@ scoreboard players reset @a macro_run
 
 scoreboard players reset $tick macro.tmp
 scoreboard players reset $pq_depth macro.tmp
-scoreboard players reset $epoch macro.time
+# $epoch intentionally preserved — cooldown expiry times depend on it
 
 data remove storage macro:engine queue
 data remove storage macro:engine events
