@@ -1,39 +1,30 @@
-
 name: PR Auto-Label
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   label:
+    name: Auto-Label PR
     runs-on: ubuntu-latest
-
-    # ✅ Node 24 zorla (warning tamamen gider)
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     permissions:
       contents: read
       pull-requests: write
-      issues: write
 
     steps:
-      # ✅ Node 24 uyumlu sürüm
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Authenticate GH CLI
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Detect changed files and apply labels
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          set -eo pipefail
-
           BASE="${{ github.event.pull_request.base.sha }}"
           HEAD="${{ github.event.pull_request.head.sha }}"
 
@@ -50,29 +41,36 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              _pre_1_21_4/*|compat_1_21_4/*|1_21_6/*)
-                add_label "overlay" ;;
+              # Overlay-specific changes
+              _pre_1_21_4/*)   add_label "overlay" ;;
+              compat_1_21_4/*)        add_label "overlay" ;;
+              1_21_6/*)        add_label "overlay" ;;
 
-              data/*/function/*.mcfunction|data/*/function/**/*.mcfunction)
+              # Function logic
+              data/*/function/*.mcfunction | data/*/function/**/*.mcfunction)
                 add_label "mcfunction" ;;
 
-              data/*/loot_table/*)    add_label "loot-table" ;;
-              data/*/advancement/*)   add_label "advancement" ;;
-              data/*/predicate/*)     add_label "predicate" ;;
-              data/*/damage_type/*)   add_label "damage-type" ;;
-              data/*/item_modifier/*) add_label "item-modifier" ;;
-              data/*/tags/*)          add_label "tags" ;;
+              # Data files (loot tables, advancements, predicates, etc.)
+              data/*/loot_table/*)   add_label "loot-table" ;;
+              data/*/advancement/*)  add_label "advancement" ;;
+              data/*/predicate/*)    add_label "predicate" ;;
+              data/*/damage_type/*)  add_label "damage-type" ;;
+              data/*/item_modifier/*)add_label "item-modifier" ;;
+              data/*/tags/*)         add_label "tags" ;;
 
-              pack.mcmeta)            add_label "pack-meta" ;;
+              # Pack root
+              pack.mcmeta)           add_label "pack-meta" ;;
 
-              docs/CHANGELOG.md)      add_label "changelog" ;;
-              docs/*)                 add_label "documentation" ;;
+              # Docs
+              docs/CHANGELOG.md)     add_label "changelog" ;;
+              docs/*)                add_label "documentation" ;;
 
-              .github/*)              add_label "ci" ;;
+              # CI
+              .github/*)             add_label "ci" ;;
             esac
           done <<< "$changed"
 
-          LABELS=$(echo "$LABELS" | xargs)
+          LABELS=$(echo "$LABELS" | xargs)  # trim whitespace
 
           if [ -z "$LABELS" ]; then
             echo "No matching labels to apply."
@@ -81,38 +79,29 @@ jobs:
 
           echo "Applying labels: $LABELS"
 
-          # 🔒 Fail-safe GH calls
-          EXISTING_LABELS=$(gh label list --json name --jq '.[].name' || echo "")
-          PR_LABELS=$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name' || echo "")
-
+          # Ensure labels exist, create if missing
           for label in $LABELS; do
-            # label yoksa oluştur
-            if ! echo "$EXISTING_LABELS" | grep -qx "$label"; then
-              case "$label" in
-                mcfunction)    color="0075ca"; desc="Changes to .mcfunction files" ;;
-                overlay)       color="e4e669"; desc="Version overlay changes" ;;
-                pack-meta)     color="d93f0b"; desc="pack.mcmeta changes" ;;
-                changelog)     color="0e8a16"; desc="Changelog updated" ;;
-                documentation) color="cfd3d7"; desc="Documentation changes" ;;
-                ci)            color="1d76db"; desc="CI/CD workflow changes" ;;
-                loot-table)    color="c5def5"; desc="Loot table changes" ;;
-                advancement)   color="bfd4f2"; desc="Advancement changes" ;;
-                predicate)     color="d4c5f9"; desc="Predicate changes" ;;
-                damage-type)   color="f9d0c4"; desc="Damage type changes" ;;
-                item-modifier) color="fef2c0"; desc="Item modifier changes" ;;
-                tags)          color="e6e6e6"; desc="Tag file changes" ;;
-                *)             color="ededed"; desc="" ;;
-              esac
-
-              echo "Creating label: $label"
-              gh label create "$label" --color "$color" --description "$desc" || true
-            fi
-
-            # PR'da yoksa ekle
-            if ! echo "$PR_LABELS" | grep -qx "$label"; then
-              echo "Adding label to PR: $label"
-              gh pr edit "$PR_NUMBER" --add-label "$label" || true
-            else
-              echo "Label already exists on PR: $label"
-            fi
+            case "$label" in
+              mcfunction)    color="0075ca"; desc="Changes to .mcfunction files" ;;
+              overlay)       color="e4e669"; desc="Version overlay changes" ;;
+              pack-meta)     color="d93f0b"; desc="pack.mcmeta changes" ;;
+              changelog)     color="0e8a16"; desc="Changelog updated" ;;
+              documentation) color="cfd3d7"; desc="Documentation changes" ;;
+              ci)            color="1d76db"; desc="CI/CD workflow changes" ;;
+              loot-table)    color="c5def5"; desc="Loot table changes" ;;
+              advancement)   color="bfd4f2"; desc="Advancement changes" ;;
+              predicate)     color="d4c5f9"; desc="Predicate changes" ;;
+              damage-type)   color="f9d0c4"; desc="Damage type changes" ;;
+              item-modifier) color="fef2c0"; desc="Item modifier changes" ;;
+              tags)          color="e6e6e6"; desc="Tag file changes" ;;
+              *)             color="ededed"; desc="" ;;
+            esac
+            gh label create "$label" --color "$color" --description "$desc" --force 2>/dev/null || true
           done
+
+          # Apply labels to PR
+          label_args=""
+          for label in $LABELS; do
+            label_args="$label_args --label $label"
+          done
+          gh pr edit "$PR_NUMBER" $label_args
