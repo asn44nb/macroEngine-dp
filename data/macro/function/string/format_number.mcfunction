@@ -1,13 +1,13 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:string/format_number
-#  Büyük sayıları okunabilir kısaltmalara çevirir.
-#  Girdi : $(value) → tam sayı
-#  Çıktı : macro:output text   → kısaltılmış metin (storage string)
-#           macro:output value  → orijinal değer
+#  Converts large numbers to readable abbreviations.
+#  Input : $(value) → integer
+#  Output: macro:output text   → abbreviated text (storage string)
+#           macro:output value  → original value
 #           macro:output suffix → k / M / B / "" suffix
-#           macro:output short  → kısaltılmış tamsayı kısmı
+#           macro:output short  → abbreviated integer part
 #
-#  Örnekler:
+#  Examples:
 #    500        → "500"
 #    1500       → "1.5k"
 #    1000000    → "1M"
@@ -18,7 +18,7 @@
 $scoreboard players set $fn_v macro.tmp $(value)
 execute store result storage macro:output value int 1 run scoreboard players get $fn_v macro.tmp
 
-# < 1000 → düz sayı
+# < 1000 → plain number
 execute if score $fn_v macro.tmp matches ..999 run data modify storage macro:output suffix set value ""
 execute if score $fn_v macro.tmp matches ..999 run execute store result storage macro:output short int 1 run scoreboard players get $fn_v macro.tmp
 execute if score $fn_v macro.tmp matches ..999 run return 0

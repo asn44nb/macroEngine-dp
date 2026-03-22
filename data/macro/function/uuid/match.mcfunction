@@ -1,27 +1,27 @@
 # ============================================================
 # macro:uuid/match
-# @s entity'sinin UUID'sini macro:input value ile karşılaştırır
-# Eşleşirse macro:input func fonksiyonunu çalıştırır
+# Compares @s entity's UUID with macro:input value
+# If matched, runs macro:input func function
 #
 # KULLANIM:
 #   data modify storage macro:input value set value "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 #   data modify storage macro:input func set value "mynamespace:my_function"
 #   execute as <entity> run function macro:uuid/match
 #
-# GİRİŞ:
-#   macro:input value → karşılaştırılacak UUID string'i (beklenen)
-#   macro:input func  → eşleşme durumunda çalıştırılacak fonksiyon
+# INPUT:
+#   macro:input value → UUID string to compare (expected)
+#   macro:input func  → function to run if matched
 #
-# NOT: func aynı entity context'inde çalıştırılır.
+# NOTE: func is run in the same entity context.
 # ============================================================
 
-# Beklenen UUID string'ini geçici alana kaydet
-# (from_entity çağrısı macro:input value'yu üzerine yazar)
+# Save expected UUID string to temporary field
+# (from_entity call overwrites macro:input value)
 data modify storage macro:uuid _match_target set from storage macro:input value
 
-# @s UUID'sini string'e çevir → macro:input value
+# Convert @s UUID to string → macro:input value
 function macro:uuid/from_entity
 
-# Karşılaştır: eşleşirse func'ı çalıştır
-# Mevcut UUID (macro:input value) beklenen ile eşit mi?
+# Compare: if matched, run func
+# Is the current UUID (macro:input value) equal to the expected?
 function macro:uuid/internal/match_check with storage macro:input

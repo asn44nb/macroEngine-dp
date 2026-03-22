@@ -1,14 +1,14 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:lib/fiber/yield
-# Bir fiber adımından çıkar ve bir sonraki adımı kuyruğa ekler.
-# Fiberin ölü olup olmadığını kontrol eder — kill sonrası resume olmaz.
+# Exits a fiber step and queues the next step.
+# Checks if the fiber is dead — no resume after kill.
 #
 # INPUT (storage macro:input):
-#   id     → fiber kimliği
-#   resume → bir sonraki adımın fonksiyon adı
-#   delay  → kaç tick sonra devam edileceği (varsayılan: 1)
+#   id     → fiber id
+#   resume → function name of the next step
+#   delay  → how many ticks to wait before resuming (default: 1)
 #
-# ÇAĞRI YERİ: fiber adımı fonksiyonunun sonunda çağrılır.
+# CALL SITE: called at the end of a fiber step function.
 # ─────────────────────────────────────────────────────────────────
 
 function macro:lib/fiber/internal/yield_exec with storage macro:input {}

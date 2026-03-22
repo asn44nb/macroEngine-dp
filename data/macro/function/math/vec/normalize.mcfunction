@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:math/vec/normalize
-# Vektörü birim uzunluğa ölçekler (×1000 fixed-point).
-# Uzunluk math/distance3d ile hesaplanır (floor(√(x²+y²+z²))).
-# Sonuçlar ×1000 — yön vektörü olarak kullanmadan önce /1000 yapın.
+# Scales vector to unit length (×1000 fixed-point).
+# Length computed via math/distance3d (floor(√(x²+y²+z²))).
+# Results are ×1000 — divide by 1000 before using as direction vector.
 #
 # INPUT:  x, y, z
 # OUTPUT: macro:output {x, y, z, length}
-#         length=0 ise sıfır vektör — x,y,z=0 döner.
+#         If length=0, zero vector — returns x,y,z=0.
 # ─────────────────────────────────────────────────────────────────
 
 function macro:math/vec/internal/normalize_exec with storage macro:input {}

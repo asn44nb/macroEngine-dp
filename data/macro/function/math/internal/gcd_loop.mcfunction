@@ -1,4 +1,4 @@
-# Öklid adımı: a = b, b = a % b — b sıfırlanana dek tekrar
+# Euclidean step: a = b, b = a % b — repeat until b is zero
 execute if score $gcd_b macro.tmp matches 0 run return 0
 
 scoreboard players operation $gcd_t macro.tmp = $gcd_a macro.tmp

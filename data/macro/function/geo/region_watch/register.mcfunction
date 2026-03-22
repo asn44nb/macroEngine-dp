@@ -1,18 +1,18 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:geo/region_watch/register
-# Kalıcı bir bölge tanımlar. Her tick oyuncu pozisyonu kontrol edilir;
-# oyuncu bölgeye girince on_enter, çıkınca on_leave tetiklenir.
-# hook/internal/tick_scan döngüsüne bağlıdır.
+# Defines a persistent region. Player position is checked every tick;
+# on_enter fires when a player enters, on_leave when they leave.
+# Depends on the hook/internal/tick_scan loop.
 #
 # INPUT (storage macro:input):
-#   id        → bölge kimliği (benzersiz string)
-#   x1, y1, z1, x2, y2, z2 → köşe koordinatları (integer)
-#   on_enter  → (opsiyonel) giriş fonksiyonu — as tetiklenen oyuncu
-#   on_leave  → (opsiyonel) çıkış fonksiyonu — as tetiklenen oyuncu
-#   on_enter_cmd → (opsiyonel) giriş komutu
-#   on_leave_cmd → (opsiyonel) çıkış komutu
+#   id        → region id (unique string)
+#   x1, y1, z1, x2, y2, z2 → corner coordinates (integer)
+#   on_enter  → (optional) entry function — as the triggering player
+#   on_leave  → (optional) leave function — as the triggering player
+#   on_enter_cmd → (optional) entry command
+#   on_leave_cmd → (optional) leave command
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input id       set value "spawn_safe"
 #   data modify storage macro:input x1       set value 0
 #   data modify storage macro:input y1       set value 60

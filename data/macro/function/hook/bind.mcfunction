@@ -1,15 +1,15 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:hook/bind
-# Belirli bir event'e fonksiyon veya komut bağlar.
-# Aynı event'e birden fazla bind eklenebilir.
+# Binds a function or command to a specific event.
+# Multiple binds can be added to the same event.
 #
 # INPUT (storage macro:input):
-#   event → event adı: "player_join" | "player_death" | "player_respawn"
+#   event → event name: "player_join" | "player_death" | "player_respawn"
 #            "level_up" | "block_place" | "block_break" | "item_use"
-#   func  → (opsiyonel) çalışacak fonksiyon — as tetiklenen oyuncu
-#   cmd   → (opsiyonel) çalışacak komut — func yoksa kullanılır
+#   func  → (optional) function to run — as the triggering player
+#   cmd   → (optional) command to run — used if func is absent
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input event set value "player_death"
 #   data modify storage macro:input func set value "mypack:on_death"
 #   function macro:hook/bind

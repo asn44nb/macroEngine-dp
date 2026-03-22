@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:nbt/count
-# Storage'daki list'in eleman sayısını döndürür.
+# Returns the element count of a list in storage.
 #
 # INPUT (storage macro:input):
 #   storage → storage namespace

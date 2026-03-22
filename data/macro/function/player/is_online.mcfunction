@@ -1,8 +1,8 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:player/is_online
-#  Oyuncunun sunucuda olup olmadığını kontrol eder.
-#  Girdi : $(player) → oyuncu adı
-#  Çıktı : macro:output result → 1b (çevrimiçi) / 0b (çevrimdışı)
+#  Checks whether the player is on the server.
+#  Girdi : $(player) → player name
+#  Output: macro:output result → 1b (online) / 0b (offline)
 # ─────────────────────────────────────────────────────────────────
 
 data modify storage macro:output result set value 0b

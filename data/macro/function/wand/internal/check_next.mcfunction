@@ -1,5 +1,5 @@
 # macro:wand/internal/check_next
-# Bind listesini iterate et: elindeki item tag'iyle eşleş.
+# Iterate bind list: match the tag of the held item.
 
 execute unless data storage macro:engine _wand_iter[0] run return 0
 

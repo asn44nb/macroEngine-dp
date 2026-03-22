@@ -1,34 +1,34 @@
 # ============================================================
 # macro:uuid/internal/extract_bytes
-# 4 UUID int'ini 16 byte'a ayırır (doğru işaretli tamsayı aritmetiği)
+# Splits 4 UUID ints into 16 bytes (correct signed integer arithmetic)
 #
-# GEREKSİNİM: Aşağıdaki fake-player skorları dolu olmalı:
+# REQUIREMENT: The following fake-player scores must be set:
 #   $uuid.0  $uuid.1  $uuid.2  $uuid.3  macro.tmp
-#   $uuid.256 macro.tmp = 256  (init tarafından kurulur)
+#   $uuid.256 macro.tmp = 256  (set by init)
 #
-# ÇIKIŞ: storage macro:uuid _tmp
-#   Alanlar  0..3  → int 0'ın byte'ları (0=LSB, 3=MSB)
-#   Alanlar  4..7  → int 1'in byte'ları
-#   Alanlar  8..b  → int 2'nin byte'ları
-#   Alanlar  c..f  → int 3'ün byte'ları
-#   Her alan 0–255 aralığında garantilidir.
+# OUTPUT: storage macro:uuid _tmp
+#   Fields  0..3  → bytes of int 0 (0=LSB, 3=MSB)
+#   Fields  4..7  → bytes of int 1
+#   Fields  8..b  → bytes of int 2
+#   Fields  c..f  → bytes of int 3
+#   Each field is guaranteed to be in range 0–255.
 #
 # NEDEN GU'DAN FARKLI?
-#   Java'nın `/` operatörü negatif bölünenlerde sıfıra doğru keser.
-#   Örneğin: -1 / 256 = 0  (floor = -1 olmalı).
-#   GU bu durumu ele almaz; negatif int'lerin yüksek byte'ları yanlış
-#   hesaplanır. Bu fonksiyon floor-bölme yöntemiyle her byte'ı doğru
-#   şekilde çıkarır:
-#     b_raw = v % 256          (Java mod, -255..255 arası)
+#   Java's `/` operator truncates toward zero for negative dividends.
+#   Example: -1 / 256 = 0  (floor should be -1).
+#   GU does not handle this; high bytes of negative ints are computed incorrectly.
+#   This function correctly extracts each byte using floor-division:
+#   
+#     b_raw = v % 256          (Java mod, range -255..255)
 #     if b_raw < 0:
-#         v = (v / 256) - 1    (floor bölmesi için düzeltme)
-#         b = b_raw + 256      (0..255'e normalize)
+#         v = (v / 256) - 1    (correction for floor division)
+#         b = b_raw + 256      (normalize to 0..255)
 #     else:
 #         v = v / 256
 #         b = b_raw
 # ============================================================
 
-# --- INT 0 (UUID'nin ilk 4 byte'ı, alanlar 0..3) ---
+# --- INT 0 (first 4 bytes of UUID, fields 0..3) ---
 
 # byte 0 — LSB
 scoreboard players operation $uuid.a macro.tmp = $uuid.0 macro.tmp
@@ -54,7 +54,7 @@ execute if score $uuid.a macro.tmp matches ..-1 run scoreboard players remove $u
 execute if score $uuid.a macro.tmp matches ..-1 run scoreboard players add $uuid.a macro.tmp 256
 execute store result storage macro:uuid _tmp.2 int 1 run scoreboard players get $uuid.a macro.tmp
 
-# byte 3 — MSB (son byte, bölme yok)
+# byte 3 — MSB (last byte, no division)
 scoreboard players operation $uuid.a macro.tmp = $uuid.0 macro.tmp
 scoreboard players operation $uuid.a macro.tmp %= $uuid.256 macro.tmp
 execute if score $uuid.a macro.tmp matches ..-1 run scoreboard players add $uuid.a macro.tmp 256

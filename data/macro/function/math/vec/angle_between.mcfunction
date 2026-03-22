@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:math/vec/angle_between
-# İki vektör arasındaki açıyı derece cinsinden döner.
+# Returns the angle between two vectors in degrees.
 # cos(θ) = dot(A,B) / (|A| × |B|)  →  θ = arccos(...)
-# Arccos için ×1000 fixed-point cos tablosu kullanılır.
+# Uses ×1000 fixed-point cos table for arccos.
 #
 # INPUT:  ax, ay, az, bx, by, bz
 # OUTPUT: macro:output result (0–180, integer derece)
-#         Sıfır vektör durumunda result=0.
+#         result=0 for zero vectors.
 # ─────────────────────────────────────────────────────────────────
 
 function macro:math/vec/internal/angle_exec with storage macro:input {}

@@ -1,11 +1,11 @@
 # ─────────────────────────────────────────────
 #  macro:lib/schedule_cmd
-#  Belirli bir süre aralığında tekrar eden komut zamanlayıcısı.
+#  Repeating command scheduler at a fixed interval.
 #
 #  Girdi (macro:input):
-#    key      — zamanlayıcı adı (benzersiz tanımlayıcı)
-#    cmd      — her tetiklendiğinde çalıştırılacak ham komut
-#    interval — tick cinsinden tekrar aralığı
+#    key      — scheduler name (unique identifier)
+#    cmd      — raw command to run on each trigger
+#    interval — repeat interval in ticks
 # ─────────────────────────────────────────────
 
 $execute if data storage macro:engine schedules.$(key) run data remove storage macro:engine schedules.$(key)

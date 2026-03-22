@@ -1,11 +1,11 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:lib/batch/cancel
-# flush yapılmamış bir batch'i iptal eder.
-# Zaten flush edilmiş ve queue'ya girmiş item'lar iptal edilemez
-# (process_queue'dan geri çekme mevcut değil — bu AME'nin tasarım kısıtı).
+# Cancels a batch that has not been flushed.
+# Items already flushed and queued cannot be cancelled
+# (pulling from process_queue is not supported — AME design constraint).
 #
 # INPUT (storage macro:input):
-#   id → batch kimliği
+#   id → batch id
 # ─────────────────────────────────────────────────────────────────
 
 function macro:lib/batch/internal/cancel_exec with storage macro:input {}

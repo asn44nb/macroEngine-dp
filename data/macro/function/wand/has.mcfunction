@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/has
-# Oyuncunun ana elinde belirli wand var mı?
+# Does the player hold a specific wand in their main hand?
 #
 # INPUT:
-#   $(player) → oyuncu adı
-#   $(tag)    → kontrol edilecek wand tag'i
-# ÇIKIŞ:
-#   macro:output result → 1b (var) / 0b (yok)
+#   $(player) → player name
+#   $(tag)    → kontrol edilecek wand tag
+# OUTPUT:
+#   macro:output result → 1b (found) / 0b (not found)
 # ─────────────────────────────────────────────────────────────────
 
 data modify storage macro:output result set value 0b

@@ -1,19 +1,19 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/give_lore
-# Lore ile birlikte wand'ı mainhand'e yazar (item replace).
+# Writes the wand with lore to mainhand (item replace).
 #
 # INPUT (storage macro:input):
-#   player → hedef oyuncu adı
-#   tag    → wand tag'i
-#   name   → item adı (string)
+#   player → target player name
+#   tag    → wand tag
+#   name   → item name (string)
 #   lore   → lore metni, TEK SATIR (string)
-#   color  → lore rengi (örn: "red", "gold", "gray")
+#   color  → lore color (e.g. "red", "gold", "gray")
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input player set value "Steve"
 #   data modify storage macro:input tag set value "fire_wand"
 #   data modify storage macro:input name set value "Fire Wand"
-#   data modify storage macro:input lore set value "Ateş Hasarı: +20"
+#   data modify storage macro:input lore set value "Fire Damage: +20"
 #   data modify storage macro:input color set value "red"
 #   function macro:wand/give_lore
 # ─────────────────────────────────────────────────────────────────

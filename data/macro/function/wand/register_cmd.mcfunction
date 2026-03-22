@@ -1,10 +1,10 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/register_cmd
-# Wand'a komut bağlar (func yerine ham komut).
+# Binds a command to the wand (raw command instead of func).
 #
 # INPUT:
-#   $(tag) → custom_data tag adı
-#   $(cmd) → çalışacak ham komut
+#   $(tag) → custom_data tag name
+#   $(cmd) → raw command to run
 # ─────────────────────────────────────────────────────────────────
 
 execute unless data storage macro:engine wand_binds run data modify storage macro:engine wand_binds set value []

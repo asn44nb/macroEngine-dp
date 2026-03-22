@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:nbt/exists
-# Storage'da belirli path var mı kontrol eder.
+# Checks whether a specific path exists in storage.
 #
 # INPUT (storage macro:input):
 #   storage → storage namespace

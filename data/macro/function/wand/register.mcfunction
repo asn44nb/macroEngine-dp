@@ -1,16 +1,16 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/register
-# Belirli bir custom_data tag'ine sahip wand'ı kaydeder.
-# Her item kullanımında $(func) veya $(cmd) çalışır.
+# Registers a wand with a specific custom_data tag.
+# On every item use, $(func) or $(cmd) runs.
 #
 # INPUT:
-#   $(tag)  → custom_data tag adı (örn: "my_wand")
-#   $(func) → (isteğe bağlı) çalışacak fonksiyon
-#   $(cmd)  → (isteğe bağlı) çalışacak komut (func yoksa)
+#   $(tag)  → custom_data tag name (e.g. "my_wand")
+#   $(func) → (optional) function to run
+#   $(cmd)  → (optional) command to run (if no func)
 #
-# ÇIKIŞ: macro:engine wand_binds listesine kayıt eklenir
+# OUTPUT: record added to macro:engine wand_binds list
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input tag set value "fire_wand"
 #   data modify storage macro:input func set value "mypack:on_fire_wand"
 #   function macro:wand/register with storage macro:input {}

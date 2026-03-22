@@ -1,17 +1,17 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/give_custom
-# Özel bir item'ı wand olarak etiketleyerek verir.
-# Herhangi bir item türü kullanılabilir (sword, stick, vb.)
-# ama sağ-tık yalnızca carrot_on_a_stick ile çalışır.
+# Gives a custom item tagged as a wand.
+# Any item type can be used (sword, stick, etc.)
+# but right-click only works with carrot_on_a_stick.
 #
 # INPUT:
-#   $(player) → hedef oyuncu
-#   $(item)   → item ID (örn: "minecraft:carrot_on_a_stick")
-#   $(tag)    → wand tag'i
-#   $(name)   → item adı (JSON text string)
-#   $(count)  → adet (varsayılan 1)
+#   $(player) → target player
+#   $(item)   → item ID (e.g. "minecraft:carrot_on_a_stick")
+#   $(tag)    → wand tag
+#   $(name)   → item name (JSON text string)
+#   $(count)  → quantity (default 1)
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input player set value "Steve"
 #   data modify storage macro:input item set value "minecraft:carrot_on_a_stick"
 #   data modify storage macro:input tag set value "ice_wand"

@@ -1,11 +1,11 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:lib/fiber/resume
-# Bir fiber'ı anında sürdürür (gecikme olmadan).
-# yield kullanmadan dışarıdan bir fiber adımını tetiklemek için.
+# Resumes a fiber immediately (no delay).
+# Used to trigger a fiber step externally without yield.
 #
 # INPUT (storage macro:input):
-#   id   → fiber kimliği
-#   func → çalıştırılacak fonksiyon
+#   id   → fiber id
+#   func → function to run
 # ─────────────────────────────────────────────────────────────────
 
 function macro:lib/fiber/internal/resume_exec with storage macro:input {}

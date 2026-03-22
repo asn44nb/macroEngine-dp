@@ -1,9 +1,9 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/unregister
-# Belirli tag'e ait tüm wand bind'larını kaldırır.
+# Removes all wand binds belonging to a specific tag.
 #
 # INPUT:
-#   $(tag) → kaldırılacak tag
+#   $(tag) → tag to remove
 # ─────────────────────────────────────────────────────────────────
 
 execute unless data storage macro:engine wand_binds run return 0

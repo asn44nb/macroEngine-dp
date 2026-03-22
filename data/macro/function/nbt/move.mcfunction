@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:nbt/move
-# Aynı storage içinde path'i taşır (kopyala + sil).
+# Moves a path within the same storage (copy + delete).
 #
 # INPUT (storage macro:input):
 #   storage   → storage namespace

@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:debug/dump_players
-#  Tüm oyuncu değişkenleri (player vars), PID'leri ve durumlarını gösterir.
-#  Kullanım: /function macro:debug/dump_players
+#  Shows all player variables (player vars), PIDs and their states.
+#  Usage: /function macro:debug/dump_players
 # ─────────────────────────────────────────────────────────────────
 
 tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Player State Dump ","color":"aqua"},{"text":"━━━━━━━━━━━━━","color":"#555555"}]

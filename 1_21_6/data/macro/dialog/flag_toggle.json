@@ -4,7 +4,7 @@
   "body": {
     "type": "minecraft:plain_message",
     "contents": {
-      "text": "Açıp kapatmak istediğin sistemi yaz ve 'Uygula' tuşuna bas.",
+      "text": "Enter the system you want to toggle and press 'Apply'.",
       "color": "aqua",
       "bold": false,
       "italic": false
@@ -14,7 +14,7 @@
     {
       "type": "minecraft:text",
       "key": "sys",
-      "label": "Modül / Sistem",
+      "label": "Module / System",
       "label_visible": true,
       "max_length": 400000000,
       "multiline": {}

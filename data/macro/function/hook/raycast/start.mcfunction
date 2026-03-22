@@ -1,6 +1,6 @@
-# Raycast başlangıcı
-# Distance counter'ı sıfırla (max 50 step = 5 blok)
+# Raycast start
+# Reset distance counter (max 50 steps = 5 blocks)
 scoreboard players set @s macro.tmp 0
 
-# Döngüyü başlat
+# Start loop
 function macro:hook/raycast/loop

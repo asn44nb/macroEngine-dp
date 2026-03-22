@@ -1,5 +1,5 @@
 # macro:wand/internal/dispatch
-# @s olarak çağrılır. Elindekileri bind listesiyle karşılaştır.
+# Called as @s. Compare held items with the bind list.
 
 data modify storage macro:engine _wand_iter set from storage macro:engine wand_binds
 execute if data storage macro:engine _wand_iter[0] run function macro:wand/internal/check_next

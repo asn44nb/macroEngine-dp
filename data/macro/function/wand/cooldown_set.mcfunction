@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/cooldown_set
-# Wand kullanımına cooldown uygular.
-# cooldown/set ile aynı semantik, key otomatik "wand.<tag>" olur.
+# Applies a cooldown to wand use.
+# Same semantics as cooldown/set; key is automatically "wand.<tag>".
 #
 # INPUT:
-#   $(player)   → oyuncu adı
-#   $(tag)      → wand tag'i
-#   $(duration) → tick cinsinden süre
+#   $(player)   → player name
+#   $(tag)      → wand tag
+#   $(duration) → duration in ticks
 # ─────────────────────────────────────────────────────────────────
 
 $scoreboard players set $wcd_dur macro.tmp $(duration)

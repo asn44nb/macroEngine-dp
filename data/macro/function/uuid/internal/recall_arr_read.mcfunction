@@ -1,8 +1,8 @@
 # ============================================================
-# macro:uuid/internal/recall_arr_read  [MACRO FONKSİYON]
-# Önbellekten UUID int array'ini okur
+# macro:uuid/internal/recall_arr_read  [MACRO FUNCTION]
+# Reads UUID int array from the cache
 #
-# Çağırma: function macro:uuid/internal/recall_arr_read with storage macro:input
-# $(key) = anahtar adı
+# Call: function macro:uuid/internal/recall_arr_read with storage macro:input
+# $(key) = key name
 # ============================================================
 $data modify storage macro:input value set from storage macro:engine uuid_cache.$(key).arr

@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:geo/region_watch/list
-# Kayıtlı tüm bölgeleri debug oyuncularına gösterir.
+# Shows all registered regions to debug players.
 # ─────────────────────────────────────────────────────────────────
 
 tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Region Watches ━━━━━━━━━━━━━━","color":"aqua"}]

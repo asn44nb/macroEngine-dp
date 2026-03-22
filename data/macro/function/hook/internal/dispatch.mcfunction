@@ -1,5 +1,5 @@
 # macro:hook/internal/dispatch
-# _hook_iter listesini iterate eder, eşleşen event'leri çalıştırır.
+# Iterates _hook_iter list, runs matching events.
 
 execute unless data storage macro:engine _hook_iter[0] run return 0
 

@@ -1,5 +1,5 @@
 # macro:geo/region_watch/internal/fire_leave [MACRO]
-# INPUT: $(on_leave) — _rw_cur'dan; SADECE on_leave field varsa çağrılır.
-# @s = bölgeden çıkan oyuncu
+# INPUT: $(on_leave) — from _rw_cur; called ONLY when on_leave field exists.
+# @s = player leaving the region
 
 $function $(on_leave)

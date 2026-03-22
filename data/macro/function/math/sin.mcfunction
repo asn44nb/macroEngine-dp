@@ -1,23 +1,23 @@
 $scoreboard players set $sin_d macro.tmp $(deg)
 
-# 0-359 aralığına sar
+# Wrap to range 0-359
 scoreboard players set $sin_360 macro.tmp 360
 scoreboard players operation $sin_d macro.tmp %= $sin_360 macro.tmp
 execute if score $sin_d macro.tmp matches ..-1 run scoreboard players operation $sin_d macro.tmp += $sin_360 macro.tmp
 
-# İşaret: 180-359 → negatif
+# Sign: 180-359 → negative
 scoreboard players set $sin_nf macro.tmp 1
 execute if score $sin_d macro.tmp matches 180..359 run scoreboard players set $sin_nf macro.tmp -1
 # 180-359 → 0-179'a indir
 execute if score $sin_d macro.tmp matches 180..359 run scoreboard players remove $sin_d macro.tmp 180
 
 # 91-179 → simetri: sin(deg) = sin(180-deg)
-# tmp2 = 180 - sin_d  (sadece 91-179 aralığında)
+# tmp2 = 180 - sin_d  (only for range 91-179)
 scoreboard players set $sin_180 macro.tmp 180
 execute if score $sin_d macro.tmp matches 91..179 run scoreboard players operation $sin_180 macro.tmp -= $sin_d macro.tmp
 execute if score $sin_d macro.tmp matches 91..179 run scoreboard players operation $sin_d macro.tmp = $sin_180 macro.tmp
 
-# Lookup tablosu 0-90 → sin × 1000
+# Lookup table 0-90 → sin × 1000
 execute if score $sin_d macro.tmp matches 0 run scoreboard players set $sin_r macro.tmp 0
 execute if score $sin_d macro.tmp matches 1 run scoreboard players set $sin_r macro.tmp 17
 execute if score $sin_d macro.tmp matches 2 run scoreboard players set $sin_r macro.tmp 35

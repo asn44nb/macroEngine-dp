@@ -1,6 +1,6 @@
 # macro:wand/internal/tick_scan
-# Her tick: macro.rightClick skoru 1+ olan oyuncuları tespit et,
-# ellerindeki itemi kontrol et, eşleşen bind'ı çalıştır.
+# Every tick: detect players with macro.rightClick score 1+,
+# check their held item, run the matching bind.
 
 execute unless data storage macro:engine wand_binds[0] run return 0
 

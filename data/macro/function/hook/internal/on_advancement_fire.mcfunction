@@ -1,6 +1,6 @@
 # macro:hook/internal/on_advancement_fire [MACRO]
 # INPUT: $(advancement)
-# @s = advancement'ı kazanan oyuncu
+# @s = player who earned the advancement
 
 $data modify storage macro:engine _hook_fire_tmp set value {event:"advancement:$(advancement)"}
 function macro:hook/internal/fire with storage macro:engine _hook_fire_tmp

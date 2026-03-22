@@ -1,6 +1,6 @@
 # macro:hook/internal/unbind_exec [MACRO]
 # INPUT: $(event)
-# hook_binds listesinden $(event)'e ait tüm bind'ları filtreler.
+# Filters all binds belonging to $(event) from hook_binds.
 
 data modify storage macro:engine _hook_unbinds set from storage macro:engine hook_binds
 data modify storage macro:engine hook_binds set value []

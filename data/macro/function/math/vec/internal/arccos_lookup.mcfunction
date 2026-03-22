@@ -1,6 +1,6 @@
 # macro:math/vec/internal/arccos_lookup
-# $vang_dot macro.tmp = cos×1000 değeri ([-1000, 1000])
-# 10° hassasiyet arccos lookup tablosu.
+# $vang_dot macro.tmp = cos×1000 value ([-1000, 1000])
+# 10° resolution arccos lookup table.
 
 execute if score $vang_dot macro.tmp matches 993.. run data modify storage macro:output result set value 0
 execute if score $vang_dot macro.tmp matches 963..992 run data modify storage macro:output result set value 10

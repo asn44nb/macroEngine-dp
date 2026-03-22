@@ -1,6 +1,6 @@
 # macro:hook/internal/unbind_filter
 # _hook_unbinds listesini iterate eder.
-# _hook_filter_event ile eşleşmeyen bind'ları hook_binds'e geri kopyalar.
+# Copies back binds that do not match _hook_filter_event to hook_binds.
 
 execute unless data storage macro:engine _hook_unbinds[0] run return 0
 

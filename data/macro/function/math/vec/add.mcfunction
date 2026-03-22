@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:math/vec/add
-# İki 3B vektörü toplar.
+# Adds two 3D vectors.
 #
 # INPUT:  ax, ay, az, bx, by, bz
 # OUTPUT: macro:output {x, y, z}

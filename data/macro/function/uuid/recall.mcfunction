@@ -1,16 +1,16 @@
 # ============================================================
 # macro:uuid/recall
-# Önbellekten UUID string'ini getirir
+# Retrieves UUID string from the cache
 #
 # KULLANIM:
 #   data modify storage macro:input key set value "benim_anahtarim"
 #   function macro:uuid/recall
 #
-# GİRİŞ:
-#   macro:input key → uuid/store ile kullanılan anahtar adı
+# INPUT:
+#   macro:input key → key name used with uuid/store
 #
-# ÇIKIŞ:
+# OUTPUT:
 #   macro:input value → UUID hex string
-#                       (anahtar yoksa value değişmez)
+#                       (value unchanged if key not found)
 # ============================================================
 function macro:uuid/internal/recall_read with storage macro:input

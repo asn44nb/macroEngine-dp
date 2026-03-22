@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:nbt/swap
-# Aynı storage içinde iki path'in değerlerini değiştirir.
+# Swaps the values of two paths within the same storage.
 #
 # INPUT (storage macro:input):
 #   storage → storage namespace

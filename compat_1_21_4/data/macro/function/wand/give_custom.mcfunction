@@ -1,5 +1,5 @@
 # macro:wand/give_custom [compat_1_21_4 overlay — pack_format 48–61]
-# 1.21.4 ve altı: item_name eski ' string syntax kullanır.
+# 1.21.4 and below: item_name uses legacy ' string syntax.
 #
 # INPUT: $(player), $(item), $(tag), $(name), $(count)
 

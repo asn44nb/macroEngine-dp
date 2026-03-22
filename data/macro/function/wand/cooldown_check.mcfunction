@@ -3,10 +3,10 @@
 # Wand cooldown aktif mi?
 #
 # INPUT:
-#   $(player) → oyuncu adı
-#   $(tag)    → wand tag'i
-# ÇIKIŞ:
-#   macro:output result → 0b=hazır, 1b=cooldown aktif
+#   $(player) → player name
+#   $(tag)    → wand tag
+# OUTPUT:
+#   macro:output result → 0b=ready, 1b=cooldown active
 # ─────────────────────────────────────────────────────────────────
 
 data modify storage macro:output result set value 0b

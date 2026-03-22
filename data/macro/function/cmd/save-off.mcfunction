@@ -1,6 +1,6 @@
 # macro:cmd/save-off
-# Server-only. Singleplayer'da parse hatası vermemek için
-# storage macro'su üzerinden çalıştırılır.
+# Server-only. Wrapped to avoid parse error in singleplayer
+# executed via storage macro.
 execute unless function macro:tools/utils/check_all run return 0
 
 data modify storage macro:input cmd set value "save-off"

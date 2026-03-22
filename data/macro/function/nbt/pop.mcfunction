@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:nbt/pop
-# List'in ilk elemanını macro:output result'a kopyalar ve listeden siler.
+# Copies the first element of a list to macro:output result and removes it.
 #
 # INPUT (storage macro:input):
 #   storage → storage namespace

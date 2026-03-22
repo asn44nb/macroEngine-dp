@@ -1,20 +1,20 @@
 # macro:lib/batch/internal/flush_exec [MACRO]
 # INPUT: $(id)
-# Her item için delay = floor(idx * spread_over / total) hesaplanır.
+# For each item, delay = floor(idx * spread_over / total) is computed.
 # Item'lar tek tek process_queue'ya eklenir — slice storage gerekmez.
 
 $execute unless data storage macro:engine batches.$(id) run return 0
 
-# Toplam ve spread_over değerlerini skora al
+# Load total and spread_over values to score
 $execute store result score $bfl_total macro.tmp run data get storage macro:engine batches.$(id).items
 $execute store result score $bfl_spread macro.tmp run data get storage macro:engine batches.$(id).spread_over
 execute if score $bfl_spread macro.tmp matches ..0 run scoreboard players set $bfl_spread macro.tmp 1
 execute if score $bfl_total macro.tmp matches 0 run return 0
 
-# İterasyon sayacı
+# Iteration counter
 scoreboard players set $bfl_idx macro.tmp 0
 
-# Items'ı çalışma kopyasına al
+# Copy items to working storage
 $data modify storage macro:engine _bfl_items set from storage macro:engine batches.$(id).items
 $data modify storage macro:engine _bfl_id set value "$(id)"
 

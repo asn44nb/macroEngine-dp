@@ -1,14 +1,14 @@
 # ============================================================
 # macro:uuid/internal/init
-# UUID modülü başlatma - hex tablosu ve sabit kurulumu
-# load/storages.mcfunction tarafından çağrılır
+# UUID module init - hex tablosu ve sabit kurulumu
+# Called by load/storages.mcfunction
 # ============================================================
 
-# Bölme sabiti (macro.tmp scoreboardunda yaşar, uuid modülüne özgü)
+# Division constant (lives in macro.tmp scoreboard, uuid module specific)
 scoreboard players set $uuid.256 macro.tmp 256
 
-# Byte → 2-karakterli hex string arama tablosu (00-ff, 256 giriş)
-# Yalnızca henüz yüklenmemişse başlatılır
+# Byte → 2-character hex string lookup table (00-ff, 256 entries)
+# Initialized only if not yet loaded
 execute unless data storage macro:uuid hex_chars run data modify storage macro:uuid hex_chars set value [\
 "00","01","02","03","04","05","06","07","08","09","0a","0b","0c","0d","0e","0f",\
 "10","11","12","13","14","15","16","17","18","19","1a","1b","1c","1d","1e","1f",\
@@ -27,5 +27,5 @@ execute unless data storage macro:uuid hex_chars run data modify storage macro:u
 "e0","e1","e2","e3","e4","e5","e6","e7","e8","e9","ea","eb","ec","ed","ee","ef",\
 "f0","f1","f2","f3","f4","f5","f6","f7","f8","f9","fa","fb","fc","fd","fe","ff"]
 
-# UUID önbellek bölmesi
+# UUID cache section
 execute unless data storage macro:engine uuid_cache run data modify storage macro:engine uuid_cache set value {}

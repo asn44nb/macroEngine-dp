@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:lib/fiber/is_alive
-# Bir fiber'ın aktif olup olmadığını kontrol eder.
+# Checks whether a fiber is active.
 #
 # INPUT (storage macro:input):
-#   id → fiber kimliği
+#   id → fiber id
 #
 # OUTPUT (storage macro:output):
-#   result → 1b (aktif) | 0b (ölü veya hiç başlamamış)
+#   result → 1b (active) | 0b (dead or never started)
 # ─────────────────────────────────────────────────────────────────
 
 function macro:lib/fiber/internal/is_alive_exec with storage macro:input {}

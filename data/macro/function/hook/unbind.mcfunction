@@ -1,9 +1,9 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:hook/unbind
-# Belirli event'e ait tüm bind'ları kaldırır.
+# Removes all binds belonging to a specific event.
 #
 # INPUT (storage macro:input):
-#   event → event adı
+#   event → event name
 # ─────────────────────────────────────────────────────────────────
 
 function macro:hook/internal/unbind_exec with storage macro:input {}

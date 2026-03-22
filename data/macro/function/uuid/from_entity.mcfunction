@@ -1,28 +1,28 @@
 # ============================================================
 # macro:uuid/from_entity
-# Mevcut entity'nin (@s) UUID'sini hex string'e çevirir
+# Converts the current entity's (@s) UUID to a hex string
 #
 # KULLANIM:
 #   execute as <entity> run function macro:uuid/from_entity
 #
-# ÇIKIŞ:
+# OUTPUT:
 #   macro:input value → "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 #
-# Çıktı macro:input value'ya yazılır (AME standardı)
-# Her çağrıda direkt NBT'den okuma — her zaman güncel
-# Negatif byte hatası düzeltilmiştir (bkz. extract_bytes)
+# Output is written to macro:input value (AME standard)
+# Direct NBT read on each call — always up to date
+# Negative byte error is fixed (see extract_bytes)
 # ============================================================
 
-# Entity UUID'sini int[4] olarak çalışma storage'ına kopyala
+# Copy entity UUID as int[4] to working storage
 data modify storage macro:uuid _work set from entity @s UUID
 
-# Dört int'i scoreboard'a yükle (entity'ye skor yazmadan)
+# Load four ints to scoreboard (without writing scores to entity)
 execute store result score $uuid.0 macro.tmp run data get storage macro:uuid _work[0]
 execute store result score $uuid.1 macro.tmp run data get storage macro:uuid _work[1]
 execute store result score $uuid.2 macro.tmp run data get storage macro:uuid _work[2]
 execute store result score $uuid.3 macro.tmp run data get storage macro:uuid _work[3]
 
-# 16 byte'a ayır → hex char'lara çevir → UUID string'i birleştir
+# Split into 16 bytes → convert to hex chars → concatenate UUID string
 function macro:uuid/internal/extract_bytes
 function macro:uuid/internal/get_hexes with storage macro:uuid _tmp
 function macro:uuid/internal/concat with storage macro:uuid _tmp

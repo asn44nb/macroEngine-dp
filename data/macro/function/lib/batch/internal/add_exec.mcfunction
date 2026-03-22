@@ -1,7 +1,7 @@
 # macro:lib/batch/internal/add_exec [MACRO]
 # INPUT: $(id)
-# func veya cmd field'ı varlık kontrolü makro dışında yapılıp
-# ilgili append_func / append_cmd çağrılır — undefined $(func/cmd) önlenir.
+# func or cmd field existence is checked outside the macro,
+# then the relevant append_func / append_cmd is called — prevents undefined $(func/cmd).
 
 $execute unless data storage macro:engine batches.$(id) run return 0
 

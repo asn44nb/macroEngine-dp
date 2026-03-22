@@ -17,25 +17,25 @@ scoreboard players set #m_player macro.Flags 1
 scoreboard players set #m_hud macro.Flags 1
 scoreboard players set #m_admin macro.Flags 1
 
-# Wand modülü — carrot_on_a_stick sağ-tık tracker
+# Wand module — carrot_on_a_stick right-click tracker
 scoreboard objectives add macro.rightClick minecraft.used:minecraft.carrot_on_a_stick
 
-# Hook modülü scoreboardları
+# Hook module scoreboards
 scoreboard objectives add macro.hook_online dummy
-# BUGFIX: reload sonrası online oyuncular yeni join gibi tetiklenmesin
+# BUGFIX: existing players should not re-trigger as new joins after reload
 scoreboard players set @a macro.hook_online 1
 scoreboard objectives add macro.hook_deaths deathCount
-# NOT: placed_blocks genel bir statistic değil — dummy olarak kullanılmalı
+# NOTE: placed_blocks is not a general statistic — must be used as dummy
 scoreboard objectives add macro.hook_placed dummy
 scoreboard objectives add macro.hook_lvl dummy
 scoreboard objectives add macro.hook_lvl_new dummy
-# Yeni hook scoreboardları
+# New hook scoreboards
 scoreboard objectives add macro.hook_sneak dummy
 scoreboard objectives add macro.hook_sprint dummy
 scoreboard objectives add macro.hook_elytra dummy
-# block_break — item_durability_changed advancement tabanlı
+# block_break — item_durability_changed advancement-based
 scoreboard objectives add macro.hook_tool_used dummy
-# item_use, entity_kill advancement tabanlı
+# item_use, entity_kill advancement-based
 scoreboard objectives add macro.hook_item_used dummy
 scoreboard objectives add macro.hook_entity_killed dummy
 # using_item, killed_by_arrow, hero_of_the_village
@@ -43,10 +43,10 @@ scoreboard objectives add macro.hook_using_item dummy
 scoreboard objectives add macro.hook_killed_by_arrow dummy
 scoreboard objectives add macro.hook_hero_of_the_village dummy
 
-# geo/region_watch — enter/leave durum takibi için scoreboard gerekmez (entity tag kullanır)
+# geo/region_watch — no scoreboard needed for enter/leave tracking (uses entity tags)
 
-# hook/dimension_change — changed_dimension advancement tabanlı
+# hook/dimension_change — changed_dimension advancement-based
 scoreboard objectives add macro.hook_dim_changed dummy
 
-# hook/trade — traded_with_villager advancement tabanlı
+# hook/trade — villager_trade advancement-based
 scoreboard objectives add macro.hook_traded dummy

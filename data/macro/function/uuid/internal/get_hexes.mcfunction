@@ -1,10 +1,10 @@
 # ============================================================
-# macro:uuid/internal/get_hexes  [MACRO FONKSİYON]
-# macro:uuid _tmp'deki 16 byte int'ini 2-karakterli hex string'lere çevirir
+# macro:uuid/internal/get_hexes  [MACRO FUNCTION]
+# Converts 16 byte ints in macro:uuid _tmp to 2-character hex strings
 #
-# Çağırma: function macro:uuid/internal/get_hexes with storage macro:uuid _tmp
-# Alanlar 0..f hex arama tablosuna indeks olarak kullanılır.
-# Aynı alanlar hex string sonuçlarıyla üzerine yazılır.
+# Call: function macro:uuid/internal/get_hexes with storage macro:uuid _tmp
+# Fields 0..f are used as indices into the hex lookup table.
+# The same fields are overwritten with hex string results.
 # ============================================================
 $data modify storage macro:uuid _tmp 0 set from storage macro:uuid hex_chars[$(0)]
 $data modify storage macro:uuid _tmp 1 set from storage macro:uuid hex_chars[$(1)]

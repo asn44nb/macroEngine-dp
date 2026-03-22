@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:debug/dump_events
-#  Tüm kayıtlı event handler'larını listeler.
-#  Kullanım: /function macro:debug/dump_events
+#  Lists all registered event handlers.
+#  Usage: /function macro:debug/dump_events
 # ─────────────────────────────────────────────────────────────────
 
 tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Event Registry ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━","color":"#555555"}]

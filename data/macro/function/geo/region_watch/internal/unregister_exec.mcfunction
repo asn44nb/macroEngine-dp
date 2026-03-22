@@ -1,7 +1,7 @@
 # macro:geo/region_watch/internal/unregister_exec [MACRO]
 # INPUT: $(id)
-# region_watches list formatında — her zaman filter çalıştır,
-# id yoksa liste değişmeden kalır.
+# region_watches in list format — always run filter,
+# if id not found, list remains unchanged.
 
 execute unless data storage macro:engine region_watches run return 0
 

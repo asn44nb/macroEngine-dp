@@ -1,6 +1,6 @@
 # macro:geo/region_watch/internal/region_loop
 # @s = kontrol edilen oyuncu
-# _rw_iter listesini tüketir, her bölge için check_region çağırır.
+# Consumes _rw_iter list, calls check_region for each region.
 
 execute unless data storage macro:engine _rw_iter[0] run return 0
 

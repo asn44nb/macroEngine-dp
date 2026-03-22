@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:debug/dump_schedules
-#  Aktif zamanlayıcı (schedule) ve kuyruğu (queue) gösterir.
-#  Kullanım: /function macro:debug/dump_schedules
+#  Shows active schedules and the queue.
+#  Usage: /function macro:debug/dump_schedules
 # ─────────────────────────────────────────────────────────────────
 
 tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Schedule / Queue Dump ","color":"aqua"},{"text":"━━━━━━━","color":"#555555"}]

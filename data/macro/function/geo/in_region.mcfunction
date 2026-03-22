@@ -10,7 +10,7 @@ $scoreboard players set $rgn_x2 macro.tmp $(x2)
 $scoreboard players set $rgn_y2 macro.tmp $(y2)
 $scoreboard players set $rgn_z2 macro.tmp $(z2)
 
-# min/max sıralama
+# min/max normalization
 execute if score $rgn_x1 macro.tmp > $rgn_x2 macro.tmp run scoreboard players operation $rgn_t macro.tmp = $rgn_x1 macro.tmp
 execute if score $rgn_x1 macro.tmp > $rgn_x2 macro.tmp run scoreboard players operation $rgn_x1 macro.tmp = $rgn_x2 macro.tmp
 execute if score $rgn_t macro.tmp > $rgn_x2 macro.tmp run scoreboard players operation $rgn_x2 macro.tmp = $rgn_t macro.tmp

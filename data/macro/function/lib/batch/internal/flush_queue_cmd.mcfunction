@@ -1,4 +1,4 @@
 # macro:lib/batch/internal/flush_queue_cmd [MACRO]
-# INPUT: $(cmd), $(delay) — _bfl_cur'dan; cmd field garantilenmiş.
+# INPUT: $(cmd), $(delay) — from _bfl_cur; cmd field guaranteed.
 
 $data modify storage macro:engine queue append value {cmd:"$(cmd)", delay:$(delay)}

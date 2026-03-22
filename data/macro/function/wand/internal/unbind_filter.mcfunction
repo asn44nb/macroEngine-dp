@@ -1,5 +1,5 @@
 # macro:wand/internal/unbind_filter
-# _wand_unbinds listesinden _wand_filter_tag ile eşleşmeyenleri geri yaz.
+# Write back entries from _wand_unbinds that do not match _wand_filter_tag.
 
 execute unless data storage macro:engine _wand_unbinds[0] run return 0
 

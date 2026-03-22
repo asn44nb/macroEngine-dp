@@ -1,6 +1,6 @@
 # macro:geo/region_watch/internal/unregister_filter
-# _rw_src listesini iterate eder.
-# id'si _rw_unbind_id ile eşleşmeyenleri _rw_new'e kopyalar.
+# Iterates _rw_src list.
+# Copies entries whose id does not match _rw_unbind_id to _rw_new.
 
 execute unless data storage macro:engine _rw_src[0] run return 0
 

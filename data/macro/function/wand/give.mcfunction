@@ -1,14 +1,14 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/give
-# Oyuncuya wand olarak işaretlenmiş bir carrot_on_a_stick verir.
+# Gives the player a carrot_on_a_stick marked as a wand.
 # Item otomatik olarak custom_data ile etiketlenir.
 #
 # INPUT:
-#   $(player) → hedef oyuncu
-#   $(tag)    → wand tag'i (custom_data içine yazılır)
-#   $(name)   → item adı (JSON text component, örn: "Fire Wand")
+#   $(player) → target player
+#   $(tag)    → wand tag (written into custom_data)
+#   $(name)   → item name (JSON text component, e.g. "Fire Wand")
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input player set value "Steve"
 #   data modify storage macro:input tag set value "fire_wand"
 #   data modify storage macro:input name set value "Fire Wand"

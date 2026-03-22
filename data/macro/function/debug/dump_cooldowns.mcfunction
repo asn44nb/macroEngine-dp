@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────
 #  macro:debug/dump_cooldowns
-#  Tüm aktif cooldown kayıtlarını ekrana döker.
-#  Kullanım: /function macro:debug/dump_cooldowns
+#  Dumps all active cooldown records to screen.
+#  Usage: /function macro:debug/dump_cooldowns
 # ─────────────────────────────────────────────────────────────────
 
 tellraw @s ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"━━━ Cooldown Dump ","color":"aqua"},{"text":"━━━━━━━━━━━━━━━━━━","color":"#555555"}]

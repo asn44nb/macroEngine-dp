@@ -12,7 +12,7 @@ $scoreboard players set $sph_dz macro.tmp $(z)
 $scoreboard players set $sph_cz macro.tmp $(cz)
 scoreboard players operation $sph_dz macro.tmp -= $sph_cz macro.tmp
 
-# Taşma önleme (max 26754 per axis)
+# Overflow prevention (max 26754 per axis)
 execute if score $sph_dx macro.tmp matches 26755.. run scoreboard players set $sph_dx macro.tmp 26754
 execute if score $sph_dx macro.tmp matches ..-26755 run scoreboard players set $sph_dx macro.tmp -26754
 execute if score $sph_dy macro.tmp matches 26755.. run scoreboard players set $sph_dy macro.tmp 26754

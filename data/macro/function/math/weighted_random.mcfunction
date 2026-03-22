@@ -3,7 +3,7 @@ $scoreboard players set $wr_total macro.tmp $(total)
 execute if score $wr_total macro.tmp matches ..0 run data modify storage macro:output result set value -1
 execute if score $wr_total macro.tmp matches ..0 run return 0
 
-# 0..total-1 arası rastgele çek
+# Draw random in range 0..total-1
 data modify storage macro:input min set value 0
 scoreboard players remove $wr_total macro.tmp 1
 execute store result storage macro:input max int 1 run scoreboard players get $wr_total macro.tmp
@@ -15,7 +15,7 @@ execute store result storage macro:output roll int 1 run scoreboard players get 
 data modify storage macro:output result set value -1
 scoreboard players set $wr_done macro.tmp 0
 
-# Kümülatif eşik kontrolü
+# Cumulative threshold check
 $scoreboard players set $wr_acc macro.tmp $(w0)
 execute if score $wr_done macro.tmp matches 0 run execute if score $wr_roll macro.tmp < $wr_acc macro.tmp run data modify storage macro:output result set value 0
 execute if score $wr_done macro.tmp matches 0 run execute if score $wr_roll macro.tmp < $wr_acc macro.tmp run scoreboard players set $wr_done macro.tmp 1

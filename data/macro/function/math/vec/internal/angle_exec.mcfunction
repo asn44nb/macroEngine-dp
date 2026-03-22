@@ -1,6 +1,6 @@
 # macro:math/vec/internal/angle_exec [MACRO]
 # INPUT: $(ax), $(ay), $(az), $(bx), $(by), $(bz)
-# KURAL: $(var) içermeyen satırlarda $ prefix OLMAZ.
+# RULE: Lines without $(var) must NOT have a $ prefix.
 
 function macro:lib/input_push
 

@@ -1,8 +1,8 @@
 # macro:lib/batch/internal/flush_loop
-# _bfl_items'ı tüketir. Her item için:
+# Consumes _bfl_items. For each item:
 #   delay = floor($bfl_idx * $bfl_spread / $bfl_total)
-# hesaplanıp queue'ya eklenir.
-# func veya cmd varlığı execute if data ile kontrol edilir.
+# computed and added to the queue.
+# func or cmd presence is checked with execute if data.
 
 execute unless data storage macro:engine _bfl_items[0] run return 0
 
@@ -11,11 +11,11 @@ scoreboard players operation $bfl_delay macro.tmp = $bfl_idx macro.tmp
 scoreboard players operation $bfl_delay macro.tmp *= $bfl_spread macro.tmp
 scoreboard players operation $bfl_delay macro.tmp /= $bfl_total macro.tmp
 
-# Item'ı geçici storage'a al
+# Move item to temporary storage
 data modify storage macro:engine _bfl_cur set from storage macro:engine _bfl_items[0]
 data remove storage macro:engine _bfl_items[0]
 
-# delay'i item'a yaz, sonra func/cmd'ye göre queue'ya ekle
+# Write delay to item, then queue by func/cmd
 execute store result storage macro:engine _bfl_cur.delay int 1 run scoreboard players get $bfl_delay macro.tmp
 
 execute if data storage macro:engine _bfl_cur.func run function macro:lib/batch/internal/flush_queue_func with storage macro:engine _bfl_cur {}

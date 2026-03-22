@@ -1,13 +1,13 @@
 # ─────────────────────────────────────────────
 #  macro:engine/call/execute_validated
-#  Güvenlik doğrulamasından geçmiş fonksiyonu çalıştırır.
-#  Yalnızca macro:tools/utils/input_check tarafından çağrılır.
+#  Runs a function that has passed security validation.
+#  Called only by macro:tools/utils/input_check.
 #
 #  Girdi (macro:output.inputs):
-#    func  — çalıştırılacak fonksiyon adı (zaten doğrulanmış)
+#    func  — function name to run (already validated)
 #  Veri   (macro:input):
-#    Fonksiyona aktarılacak tüm parametreler
+#    All parameters to pass to the function
 # ─────────────────────────────────────────────
 
-# Doğrulanmış func adını macro sub-function'a ilet ve çalıştır
+# Pass validated func name to macro sub-function and run
 function macro:engine/call/execute_validated/run with storage macro:output inputs

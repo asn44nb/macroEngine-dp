@@ -1,7 +1,7 @@
 # macro:math/vec/internal/normalize_exec [MACRO]
 # INPUT: $(x), $(y), $(z)
-# math/distance3d ile uzunluk hesapla, sonra ×1000 / length
-# KURAL: $(var) içermeyen satırlarda $ prefix OLMAZ.
+# Compute length via math/distance3d, then ×1000 / length
+# RULE: Lines without $(var) must NOT have a $ prefix.
 
 function macro:lib/input_push
 

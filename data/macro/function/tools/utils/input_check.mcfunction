@@ -3,7 +3,7 @@ data modify storage macro:output data set from storage macro:engine
 
 execute unless data storage macro:output data.global{loaded:1b} run return 0
 
-# engine v2.2.0-pre1 (küçük v) saklar
+# engine stores v2.2.0-pre1 (lowercase v)
 execute unless data storage macro:output data.global{version:"v2.2.0"} run return 0
 
 # --- Tehlikeli komutlar: injection engeli (permission-level 3 / singleplayer uyumsuz) ---
@@ -131,14 +131,14 @@ execute if data storage macro:output inputs{func:"macro:cmd/save-all"} run retur
 execute if data storage macro:output inputs{func:"macro:cmd/save-off"} run return 0
 execute if data storage macro:output inputs{func:"macro:cmd/save-on"} run return 0
 
-# Hassas storage yollarını manipüle etmeye yönelik genel injection denemelerini engelle
+# Block general injection attempts targeting sensitive storage paths
 execute if data storage macro:output inputs{func:"with storage macro:engine"} run return 0
 execute if data storage macro:output inputs{func:"with storage macro:input"} run return 0
 execute if data storage macro:output inputs{func:"with storage macro:output"} run return 0
 
-# Doğrulama başarıyla tamamlandıysa, komutu güvenli bir şekilde yürütme aşamasına geç
+# If validation passed, proceed to safe execution phase
 function macro:engine/call/execute_validated
 
-# Geçici verileri temizle (Bellek yönetimi ve güvenlik için)
+# Clean up temporary data (memory management and security)
 data remove storage macro:output data
 data remove storage macro:output inputs

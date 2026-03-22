@@ -1,14 +1,14 @@
-# Raycast döngüsü
-# Mevcut pozisyonda air olmayan blok var mı kontrol et
+# Raycast loop
+# Check if there is a non-air block at the current position
 
 # Air olmayan blok bulduysa -> found function
 execute unless block ~ ~ ~ #minecraft:air run return run function macro:hook/raycast/found
 
 # Hala air -> devam et
-# Counter'ı artır
+# Increment counter
 scoreboard players add @s macro.tmp 1
 
-# Max mesafeye ulaştıysak dur (50 step = 5 blok)
+# Stop if max distance reached (50 steps = 5 blocks)
 execute if score @s macro.tmp matches 50.. run return 0
 
 # Pozisyonu 0.1 blok ilerlet ve tekrar dene

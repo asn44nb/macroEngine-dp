@@ -68,7 +68,7 @@ data remove storage macro:engine _wand_cur
 data remove storage macro:engine player_pids
 data remove storage macro:engine _pid_seq
 
-# Hook modülü temizleme
+# Hook module cleanup
 scoreboard objectives remove macro.hook_online
 scoreboard objectives remove macro.hook_deaths
 scoreboard objectives remove macro.hook_placed

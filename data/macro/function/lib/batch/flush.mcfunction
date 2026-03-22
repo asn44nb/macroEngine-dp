@@ -1,11 +1,11 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:lib/batch/flush
-# Batch'teki işleri spread_over tick'e bölerek process_queue'ya ekler.
-# Her tick'e düşen iş sayısı: ceil(items / spread_over).
-# flush sonrası batch kaydı silinir.
+# Splits batch jobs across spread_over ticks and adds them to process_queue.
+# Jobs per tick: ceil(items / spread_over).
+# Batch record is deleted after flush.
 #
 # INPUT (storage macro:input):
-#   id → batch kimliği
+#   id → batch id
 # ─────────────────────────────────────────────────────────────────
 
 function macro:lib/batch/internal/flush_exec with storage macro:input {}

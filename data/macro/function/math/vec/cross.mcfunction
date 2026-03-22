@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:math/vec/cross
-# İki vektörün çapraz çarpımını hesaplar.
+# Computes the cross product of two vectors.
 # cx = ay*bz - az*by
 # cy = az*bx - ax*bz
 # cz = ax*by - ay*bx

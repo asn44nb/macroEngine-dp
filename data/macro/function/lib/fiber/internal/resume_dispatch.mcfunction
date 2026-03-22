@@ -1,6 +1,6 @@
 # macro:lib/fiber/internal/resume_dispatch
-# process_queue tarafından çağrılır.
-# _pending[0]'ı çeker, fiber alive kontrolü yapar, fonksiyonu çalıştırır.
+# Called by process_queue.
+# Pops _pending[0], checks fiber alive status, runs the function.
 
 execute unless data storage macro:engine fibers._pending[0] run return 0
 

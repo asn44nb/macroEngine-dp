@@ -22,28 +22,28 @@ execute unless data storage macro:engine interaction_binds run data modify stora
 execute unless data storage macro:engine player_pids run data modify storage macro:engine player_pids set value {}
 execute unless data storage macro:engine _pid_seq run data modify storage macro:engine _pid_seq set value 0
 
-# UUID modülü başlatma
+# UUID module init
 function macro:uuid/internal/init
 
-# once_per_player modülü başlatma
+# once_per_player module init
 execute unless data storage macro:engine once_per_player run data modify storage macro:engine once_per_player set value {}
 
-# Wand modülü başlatma
+# Wand module init
 execute unless data storage macro:engine wand_binds run data modify storage macro:engine wand_binds set value []
 
-# Hook modülü başlatma
+# Hook module init
 execute unless data storage macro:engine hook_binds run data modify storage macro:engine hook_binds set value []
 
-# lib/fiber modülü başlatma
+# lib/fiber module init
 execute unless data storage macro:engine fibers run data modify storage macro:engine fibers set value {}
 data remove storage macro:engine fibers._pending
 
-# geo/region_watch modülü başlatma
-# Reload'da watches silinir — her load'da yeniden register edilmeli
+# geo/region_watch module init
+# Watches are cleared on reload — must re-register on each load
 data remove storage macro:engine region_watches
 data modify storage macro:engine region_watches set value []
 
-# lib/batch modülü başlatma
-# Yarım batch'ler reload'da temizlenir
+# lib/batch module init
+# Incomplete batches are cleared on reload
 data remove storage macro:engine batches
 data modify storage macro:engine batches set value {}

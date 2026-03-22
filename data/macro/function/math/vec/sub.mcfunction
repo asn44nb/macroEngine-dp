@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:math/vec/sub
-# A vektöründen B vektörünü çıkarır. (A - B)
+# Subtracts vector B from vector A. (A - B)
 #
 # INPUT:  ax, ay, az, bx, by, bz
 # OUTPUT: macro:output {x, y, z}

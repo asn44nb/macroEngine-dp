@@ -1,5 +1,5 @@
 # macro:hook/unbind_all
-# Tüm hook bind'larını temizler.
+# Clears all hook binds.
 
 data modify storage macro:engine hook_binds set value []
 

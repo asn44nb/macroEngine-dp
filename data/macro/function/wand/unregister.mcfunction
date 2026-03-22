@@ -1,11 +1,11 @@
 # ─────────────────────────────────────────────────────────────────
 # macro:wand/unregister
-# Belirli tag'e ait tüm wand bind'larını kaldırır.
+# Removes all wand binds belonging to a specific tag.
 #
 # INPUT (storage macro:input):
-#   tag → kaldırılacak wand tag'i
+#   tag → wand tag to remove
 #
-# ÖRNEK:
+# EXAMPLE:
 #   data modify storage macro:input tag set value "fire_wand"
 #   function macro:wand/unregister
 # ─────────────────────────────────────────────────────────────────

@@ -3,8 +3,8 @@
 #        $(on_enter), $(on_leave) — opsiyonel func
 #        $(on_enter_cmd), $(on_leave_cmd) — opsiyonel cmd
 #
-# region_watches liste formatında saklanır: [{id,x1,...,on_enter,...}, ...]
-# Aynı id varsa önce filter ile çıkar, sonra append et.
+# region_watches stored as list: [{id,x1,...,on_enter,...}, ...]
+# If same id exists, filter it out first, then append.
 
 # Varsa sil (unregister_filter pattern)
 data modify storage macro:engine _rw_unbind_id set from storage macro:input id
@@ -16,10 +16,10 @@ data remove storage macro:engine _rw_new
 data remove storage macro:engine _rw_src
 data remove storage macro:engine _rw_unbind_id
 
-# Yeni kaydı oluştur ve append et
+# Create new record and append
 $data modify storage macro:engine region_watches append value {id:"$(id)",x1:$(x1),y1:$(y1),z1:$(z1),x2:$(x2),y2:$(y2),z2:$(z2)}
 
-# on_enter / on_leave func — append ettiğimiz son eleman [-1]
+# on_enter / on_leave func — last appended element [-1]
 execute if data storage macro:input on_enter run data modify storage macro:engine region_watches[-1].on_enter set from storage macro:input on_enter
 execute if data storage macro:input on_leave run data modify storage macro:engine region_watches[-1].on_leave set from storage macro:input on_leave
 

@@ -1,8 +1,8 @@
 # ─────────────────────────────────────────────
 #  macro:engine/call/execute_validated/run
-#  Doğrulanmış fonksiyonu macro ile genişletip çalıştırır.
-#  macro:output.inputs storage'ından $(func) değişkenini alır,
-#  macro:input storage'ını parametre kaynağı olarak kullanır.
+#  Expands and runs the validated function via macro.
+#  Gets $(func) variable from macro:output.inputs storage,
+#  uses macro:input storage as the parameter source.
 # ─────────────────────────────────────────────
 
 $function $(func) with storage macro:input {}

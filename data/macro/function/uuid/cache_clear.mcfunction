@@ -1,11 +1,11 @@
 # ============================================================
 # macro:uuid/cache_clear
-# Tüm önbelleği temizler (uuid/store ile kaydedilen tüm girişler)
+# Clears all cache (all entries saved with uuid/store)
 #
 # KULLANIM:
 #   function macro:uuid/cache_clear
 #
-# Uyarı: Bu işlem geri alınamaz. Tüm depolanmış UUID'ler silinir.
-# Genellikle dünya sıfırlanırken veya oyuncu ayrılırken kullanılır.
+# Warning: This operation is irreversible. All stored UUIDs are deleted.
+# Typically used when resetting the world or when a player leaves.
 # ============================================================
 data modify storage macro:engine uuid_cache set value {}
