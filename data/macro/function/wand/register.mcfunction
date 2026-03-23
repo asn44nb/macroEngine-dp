@@ -18,7 +18,9 @@
 
 execute unless data storage macro:engine wand_binds run data modify storage macro:engine wand_binds set value []
 
-$execute if data storage macro:input {func:"$(func)"} run data modify storage macro:engine wand_binds append value {tag:"$(tag)", func:"$(func)"}
-$execute unless data storage macro:input {func:"$(func)"} run data modify storage macro:engine wand_binds append value {tag:"$(tag)", cmd:"$(cmd)"}
+#$execute if data storage macro:input {func:"$(func)"} run data modify storage macro:engine wand_binds append value {tag:"$(tag)", func:"$(func)"}
+#$execute unless data storage macro:input {func:"$(func)"} run data modify storage macro:engine wand_binds append value {tag:"$(tag)", cmd:"$(cmd)"}
+
+$data modify storage macro:engine wand_binds append value {tag:"$(tag)", cmd:"$(cmd)",func:"$(func)"}
 
 $tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"wand/register ","color":"aqua"},{"text":"✔ ","color":"green"},{"text":"$(tag)","color":"white"}]

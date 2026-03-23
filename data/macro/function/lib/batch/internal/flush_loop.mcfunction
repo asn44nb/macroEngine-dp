@@ -18,8 +18,8 @@ data remove storage macro:engine _bfl_items[0]
 # Write delay to item, then queue by func/cmd
 execute store result storage macro:engine _bfl_cur.delay int 1 run scoreboard players get $bfl_delay macro.tmp
 
-execute if data storage macro:engine _bfl_cur.func run function macro:lib/batch/internal/flush_queue_func with storage macro:engine _bfl_cur {}
-execute unless data storage macro:engine _bfl_cur.func run execute if data storage macro:engine _bfl_cur.cmd run function macro:lib/batch/internal/flush_queue_cmd with storage macro:engine _bfl_cur {}
+execute if data storage macro:engine _bfl_cur.func run function macro:lib/batch/internal/flush_queue_func with storage macro:engine _bfl_cur
+execute unless data storage macro:engine _bfl_cur.func run execute if data storage macro:engine _bfl_cur.cmd run function macro:lib/batch/internal/flush_queue_cmd with storage macro:engine _bfl_cur
 
 data remove storage macro:engine _bfl_cur
 scoreboard players add $bfl_idx macro.tmp 1
