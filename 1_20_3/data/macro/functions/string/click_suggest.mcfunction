@@ -1,1 +1,1 @@
-$tellraw $(target) {"text":"$(text)","color":"$(color)","clickEvent":{"action":"suggest_command","value":"/$(suggest)"},"hoverEvent":{"action":"show_text","value":{"text":"Click","color":"gray","italic":true}}}
+$tellraw $(target) {"text":"$(text)","color":"$(color)","clickEvent":{"action":"suggest_command","value":"/$(suggest)"},"hoverEvent":{"action":"show_text","contents":{"text":"Click","color":"gray","italic":true}}}

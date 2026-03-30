@@ -1,1 +1,1 @@
-$tellraw $(target) {"text":"$(text)","color":"$(color)","underlined":true,"clickEvent":{"action":"open_url","value":"$(url)"},"hoverEvent":{"action":"show_text","value":{"text":"$(url)","color":"gray"}}}
+$tellraw $(target) {"text":"$(text)","color":"$(color)","underlined":true,"clickEvent":{"action":"open_url","value":"$(url)"},"hoverEvent":{"action":"show_text","contents":{"text":"$(url)","color":"gray"}}}

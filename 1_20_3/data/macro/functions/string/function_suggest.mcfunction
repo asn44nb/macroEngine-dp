@@ -19,4 +19,4 @@
 #   function macro:string/function_suggest with storage macro:input {}
 # ─────────────────────────────────────────────────────────────────
 
-$tellraw $(target) [{"text":"$(title)","color":"$(color)","bold":true},{"text":"\n"},{"text":"$(body)","color":"gray","italic":true},{"text":"\n"},{"text":"/function $(suggest)","color":"$(color)","underlined":true,"italic":false,"clickEvent":{"action":"suggest_command","value":"/function $(suggest)"},"hoverEvent":{"action":"show_text","value":{"text":"Click to edit","color":"gray","italic":true}}}]
+$tellraw $(target) [{"text":"$(title)","color":"$(color)","bold":true},{"text":"\n"},{"text":"$(body)","color":"gray","italic":true},{"text":"\n"},{"text":"/function $(suggest)","color":"$(color)","underlined":true,"italic":false,"clickEvent":{"action":"suggest_command","value":"/function $(suggest)"},"hoverEvent":{"action":"show_text","contents":{"text":"Click to edit","color":"gray","italic":true}}}]
