@@ -11,3 +11,6 @@ data remove storage macro:input key
 scoreboard players enable @a[tag=macro.admin] macro_menu
 scoreboard players enable @a[tag=macro.admin] macro_run
 scoreboard players enable @a[tag=macro.admin] macro_action
+
+# Initialize tick channel config on first world load
+function macro:tick/init_channels

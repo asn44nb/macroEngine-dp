@@ -1,4 +1,5 @@
 {
-  "replace": false,
-  "values": ["macro:load/warn"]
+  "values": [
+    "macro:load/warn"
+  ]
 }

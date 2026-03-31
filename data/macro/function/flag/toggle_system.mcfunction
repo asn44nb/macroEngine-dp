@@ -1,5 +1,7 @@
-$scoreboard players operation #ftgl_sys macro.tmp = #m_$(system) macro.Flags
+# macro:flag/toggle_system — Toggle a built-in tick channel on/off
+# Usage: function macro:flag/toggle_system {system:"time"}
+# Valid systems: time | queue | player | hud | admin
+# Delegates to macro:tick/channel/enable|disable internally.
 
-$execute if score #ftgl_sys macro.tmp matches 1 run scoreboard players set #m_$(system) macro.Flags 0
-$execute if score #ftgl_sys macro.tmp matches 0 run scoreboard players set #m_$(system) macro.Flags 1
-$tellraw @a[tag=macro.debug] ["",{"text":"[AME] ","color":"#00AAAA","bold":true},{"text":"flag/toggle_system ","color":"aqua"},{"text":" → ","color":"#555555"},{"text":"$(system)","color":"aqua"}]
+$data modify storage macro:tick_work _ftgl set from storage macro:engine tick.channels[{id:"$(system)_systems"}]
+function macro:flag/toggle_system/exec with storage macro:tick_work _ftgl

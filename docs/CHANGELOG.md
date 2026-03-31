@@ -2,7 +2,7 @@
 
 ---
 
-## v2.2.5 — 2026-03-30
+## v2.2.6 — 2026-03-30
 
 ### ♻️ 1.20.x Overlay (1_20_3) Eklendi
 | Özellik | Açıklama |
@@ -37,7 +37,7 @@
 ### ⚙️ Internal
 | Değişiklik | Açıklama |
 |-----|----------|
-| Version sistemi | `v2.2.5` olarak güncellendi |
+| Version sistemi | `v2.2.6` olarak güncellendi |
 | Debug kalıntıları | Temizlendi |
 | Overlay yükleme | Stabil hale getirildi |
 

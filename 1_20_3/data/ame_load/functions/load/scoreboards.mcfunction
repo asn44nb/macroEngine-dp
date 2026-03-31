@@ -9,13 +9,7 @@ scoreboard objectives add health health {"text":"❤","color":"red"}
 scoreboard objectives add ame.pre_version dummy
 scoreboard objectives add macro.pid dummy
 
-scoreboard objectives add macro.Flags dummy {"text":"Macro Flags","color":"gold"}
 
-scoreboard players set #m_time macro.Flags 1
-scoreboard players set #m_queue macro.Flags 1
-scoreboard players set #m_player macro.Flags 1
-scoreboard players set #m_hud macro.Flags 1
-scoreboard players set #m_admin macro.Flags 1
 
 # Wand module — carrot_on_a_stick right-click tracker
 scoreboard objectives add macro.rightClick minecraft.used:minecraft.carrot_on_a_stick
@@ -62,3 +56,7 @@ scoreboard objectives add macro.rl_timer dummy "RL: Timer (internal)"
 function macro:rate_limit/config/limits
 
 tellraw @a[tag=macro.debug] ["",{"text":"[macroEngine] ","color":"aqua"},{"text":"Rate Limit module initialized","color":"gray"}]
+
+# Tick channel dispatch
+scoreboard objectives add macro.tick dummy
+scoreboard objectives add macro.Flags dummy

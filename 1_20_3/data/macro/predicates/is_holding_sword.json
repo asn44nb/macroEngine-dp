@@ -5,7 +5,14 @@
     "predicate": {
       "equipment": {
         "mainhand": {
-          "items": "#minecraft:swords"
+          "items": [
+            "minecraft:netherite_sword",
+            "minecraft:diamond_sword",
+            "minecraft:golden_sword",
+            "minecraft:iron_sword",
+            "minecraft:stone_sword",
+            "minecraft:wooden_sword"
+          ]
         }
       }
     }

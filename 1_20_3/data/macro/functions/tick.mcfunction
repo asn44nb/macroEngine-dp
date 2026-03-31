@@ -1,20 +1,20 @@
+# AME Tick Engine v2 — Entry Point
+# Driven by #minecraft:tick function tag (guaranteed 1/game-tick, no drift).
+#
+# All rate/offset/condition/pause logic is inside the channel dispatcher.
+# Do NOT add any per-system logic here — register a channel instead.
+
+# Guard: no players online → nothing to process
 execute unless entity @a run return 0
 
+# Guard: engine not initialised
 execute unless data storage macro:engine global{loaded:1b} run return 0
 
-execute if score #m_time macro.Flags matches 1 run function macro:tick/time_systems
-execute if score #m_time macro.Flags matches 0 run function macro:tick/disabled
+# Guard: globally paused (macro:tick/pause / macro:tick/resume)
+execute if data storage macro:engine tick{paused:1b} run return 0
 
-execute if score #m_queue macro.Flags matches 1 run function macro:tick/queue_systems
-execute if score #m_queue macro.Flags matches 0 run function macro:tick/disabled
+# Dispatch all registered channels
+function macro:tick/dispatch
 
-execute if score #m_player macro.Flags matches 1 run function macro:tick/player_systems
-execute if score #m_player macro.Flags matches 0 run function macro:tick/disabled
-
-execute if score #m_hud macro.Flags matches 1 run function macro:tick/hud_systems
-execute if score #m_hud macro.Flags matches 0 run function macro:tick/disabled
-
-execute if score #m_admin macro.Flags matches 1 run function macro:tick/admin_systems
-execute if score #m_admin macro.Flags matches 0 run function macro:tick/disabled
-
+# Online player count — kept for compatibility
 execute store result score #online macro.onlinePlayers if entity @a
